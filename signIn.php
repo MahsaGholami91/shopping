@@ -291,7 +291,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="input-group mb-3">
                                         <label class="form-label" for="email">Email</label>
-                                        <input class="form-control login-input" type="email" name="" id="email">
+                                        <input class="form-control login-input" type="text" name="name" id="name">
                                     </div>
                                     <div class="input-group mb-3">
                                         <label class="form-label" for="password">Password</label>
@@ -305,24 +305,33 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <form class="signIn-form" action="includes/formhandler.php" method="POST">
+                            <form class="signIn-form" action="includes/signin.inc.php" method="POST">
                                 <div class="d-flex flex-column">
                                     <div class="input-group mb-3">
-                                        <label class="form-label" for="name">Name</label>
+                                        <label class="form-label" for="usersName">Name</label>
                                         <input class="form-control signIn-input" type="text" name="name" id="name">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <label class="form-label" for="lastname">Last Name</label>
-                                        <input class="form-control signIn-input" type="text" name="last_name" id="lastname">
+                                        <label class="form-label" for="uid">Username</label>
+                                        <input class="form-control signIn-input" type="text" name="uid" id="username">
                                     </div>
                                     <div class="input-group mb-3">
-                                        <label class="form-label" for="email">Email</label>
+                                        <label class="form-label" for="usersEmail">Email</label>
                                         <input class="form-control signIn-input" type="email" name="email" id="email">
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input class="form-control signIn-input" type="password" name="user_pass" id="myPass">
+                                        <label class="form-label" for="usersPwd">Password</label>
+                                        <input class="form-control signIn-input" type="password" name="pwd" id="myPass">
+                                        <span id="showPass">
+                                            <span class="material-symbols-outlined" style="display:none;">visibility</span>
+                                            <span class="material-symbols-outlined">visibility_off</span>
+                                        </span>
+                                        <span class="password-cm">Lorem ipsum dolor sit amet.</span>                                    
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <label class="form-label" for="repassword">Repeat Password</label>
+                                        <input class="form-control signIn-input" type="password" name="pwdrepeat" id="myrePass">
                                         <span id="showPass">
                                             <span class="material-symbols-outlined" style="display:none;">visibility</span>
                                             <span class="material-symbols-outlined">visibility_off</span>
