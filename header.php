@@ -15,15 +15,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="owl.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-                
-   
+    <style type="text/css" class="drift-base-styles">
+        @keyframes noop {
+          0% { zoom: 1; }
+        }
+        
+        @-webkit-keyframes noop {
+          0% { zoom: 1; }
+        }
+        
+        .drift-zoom-pane.drift-open {
+          display: block;
+        }
+        
+        .drift-zoom-pane.drift-opening, .drift-zoom-pane.drift-closing {
+          animation: noop 1ms;
+          -webkit-animation: noop 1ms;
+        }
+        
+        .drift-zoom-pane {
+          position: absolute;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+        }
+        
+        .drift-zoom-pane-loader {
+          display: none;
+        }
+        
+        .drift-zoom-pane img {
+          position: absolute;
+          display: block;
+          max-width: none;
+          max-height: none;
+        }
+        
+        .drift-bounding-box {
+          position: absolute;
+          pointer-events: none;
+        }
+    </style>               
+    <link href="assets/css/master.css?v=1591956123" rel="stylesheet" type="text/css">
+    <link href="assets/css/media.css?v=1591956123" rel="stylesheet" type="text/css">
           
 
 </head>
 <body>
     <div class="container container-md">
         <div class="head">
+            <div class="banner">
+                <img src="images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
+            </div>
             <div class="border1 my-2">
                 <div class="d-none d-sm-block">
                     <div class="sub_menu d-flex flex-row-reverse ">
@@ -41,34 +89,37 @@
                     </div>
                     <div class="input-search">
                         <input type="text" class="form-control" placeholder="Search...">
-                        <div class="search-btn">
-                            <span class="material-symbols-outlined fs-10">search </span>                        
-                        </div>
+                            <div class="search-btn">
+                                <span class="material-symbols-outlined fs-10">search </span>                        
+                            </div>
                     </div>
-                    <div class="d-none d-sm-block">
-                        <div class="action-btn d-flex flex-row-reverse">
-                            <div class="p-2 d-flex align-items-end basket">
-                                <span class="material-symbols-outlined fs-10">shopping_cart </span>
-                                <span>sepetim</span>
-                            </div>
-                            <div class="p-2 d-flex align-items-end favorit">
-                                <span class="material-symbols-outlined">favorite </span>
-                                <span>favorit</span>
-                            </div>
-                            <div class="p-2 d-flex align-items-end sign-in"> 
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="material-symbols-outlined"> person </span>
-                                        giris
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li class="my-2"><a class="giris-btn dropdown-item" href="#">giris</a></li>
-                                        <li class="my-2"><a class="oye-btn dropdown-item" href="#">Oye Ol</a></li>
-                                    </ul>
+                        <div class="d-none d-sm-block">
+                            <div class="action-btn d-flex flex-row-reverse">
+                                <div class="p-2 d-flex align-items-end basket">
+                                    <span class="material-symbols-outlined fs-10">shopping_cart </span>
+                                    <span>sepetim</span>
+                                </div>
+                                <div class="p-2 d-flex align-items-end favorit">
+                                    <span class="material-symbols-outlined">favorite </span>
+                                    <span>favorit</span>
+                                </div>
+                                <div class="p-2 d-flex align-items-end sign-in"> 
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="material-symbols-outlined"> person </span>
+                                            giris
+                                        </a>
+                                      
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li class="my-2"><a class="giris-btn dropdown-item" href="signIn.php">giris</a></li>
+                                            <li class="my-2"><a class="oye-btn dropdown-item" href="signIn.php">Oye Ol</a></li>
+                                        </ul>
+                                      </div>
+                                    <!-- <span>giris</span> -->
                                 </div>
                             </div>
+
                         </div>
-                    </div>
                 </div>
                 <!-- hamMenu -->
                 <div class="mobile-container d-block d-sm-none">
@@ -94,6 +145,8 @@
                 </div>
                 <div id="mobile-menu" class="mobile-menu">
                     <span onclick="hamMenu()" class=" material-symbols-outlined"> close </span>
+
+
                     <ul class="accordion accordion-flush" id="accordionFlushExample">
                         <li class="main_menu accordion-item">
                           <h2 class="accordion-header" id="flush-headingOne">
@@ -154,10 +207,15 @@
                               </div>
                             </div>
                         </li>
-                    </ul>                            
+                    </ul>                          
+                        
+                        
                 </div>
                 <!-- hamMenu -->
+
+
                 <div class="row d-none d-sm-block">
+                    
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link  fs-10" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Kadın</a>
@@ -270,234 +328,5 @@
                
                 </div>
             </div>
-        </div>
-        <!-- main body -->
-        <div class="container login-page">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <h1>Merhaba!</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form class="signIn-form" action="" method="POST">
-                        <div class="d-flex flex-column">
-                            <div class="input-group mb-3">
-                                <label class="form-label" for="usersName">Name</label>
-                                <input class="form-control signIn-input" type="text" name="name" id="name" value="">
-                            </div>
-                            <div class="input-group mb-3">
-                                <label class="form-label" for="uid">Username</label>
-                                <input class="form-control signIn-input" type="text" name="uid" id="username" value="">
-                            </div>
-                            <div class="input-group mb-3">
-                                <label class="form-label" for="usersEmail">Email</label>
-                                <input class="form-control signIn-input" type="email" name="email" id="email" value="">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <label class="form-label" for="usersPwd">Password</label>
-                                <input class="form-control signIn-input" type="password" name="pwd" id="myPass" value="">
-                                <span id="showPass">
-                                    <span class="material-symbols-outlined" style="display:none;">visibility</span>
-                                    <span class="material-symbols-outlined">visibility_off</span>
-                                </span>
-                                <span class="password-cm">Lorem ipsum dolor sit amet.</span>                                    
-                            </div>
-
-                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check " name="gender" id="btnradio1" autocomplete="off" value="0" checked>
-                                <label class="btn gender-btn" for="btnradio1">Kadin</label>
-                                <input type="radio" class="btn-check " name="gender" id="btnradio2" autocomplete="off" value="1" >
-                                <label class="btn gender-btn" for="btnradio2">Erkek</label>
-                              </div>
-                         
-                            <div class="input-group my-4">
-                                <button class="giris-submit btn" type="submit" name="submitBtn">Uye ol</button>
-                            </div>
-                        </div>
-                    </form>
-                      
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-        </div>
-        <!-- main body -->
-    </div>
-         
-    <section class="footer">
-        <div class="container">
-            <div class="row footer-design ">
-                <div class="part1 col-md-3 col-sm-5 col-5 ">
-                    <div class="first d-flex flex-column">
-                        <div class="title">Trendyol</div>
-                        <div class="list d-flex flex-column">
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                        </div>
-                    </div>
-                    <div class="second d-flex flex-column">
-                        <div class="title">Guvenli</div>
-                        <div class="guvenli d-flex flex-row">
-                            <div class="visa"><img src="images/troy-logo-transparent.webp" alt=""></div>
-                            <div class="visa1"><img src="images/footer-master-card.webp" alt=""></div>
-                            <div class="visa2"><img src="images/footer-visa-black.webp" alt=""></div>
-                            <div class="visa3"><img src="images/footer-amex.webp" alt=""></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="part3 col-md-3 col-sm-5 col-5">
-                    <div class="first d-flex flex-column">
-                        <div class="title">Kampanya</div>
-                        <div class="list d-flex flex-column">
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                        </div>
-                    </div>
-                    <div class="second d-flex flex-column">
-                        <div class="title">Spcial Media</div>
-                        <div class="social-media d-flex flex-row">
-                            <a class="facebook" href="">
-
-                            </a>
-                            <a class="instagram" href=""></a>
-                            <a class="twitter" href=""></a>
-                            <a class="youtube" href="">
-                        
-                            </a>
-                        </div>
-                    </div>  
-                </div>
-                <div class="part2 col-md-3 col-sm-5 col-5">
-                        <div class="first d-flex flex-column">
-                        <div class="title">About Us</div>
-                        <div class="list d-flex flex-column">
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                        </div>
-                    </div>
-                    <div class="second d-flex flex-column">
-                        <div class="title">Mobile App</div>
-                        <div class="mobile-app d-flex flex-column">
-                            <a class="app-store" href=""></a>
-                            <a class="google-play" href=""></a>
-                            <a class="app-gallery" href=""></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="part4 col-md-3 col-sm-5 col-5">
-                    <div class="first d-flex flex-column">
-                        <div class="title">Yardim</div>
-                        <div class="list d-flex flex-column">
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                            <a class="text-secondary" href="">Biz Kimiz</a>
-                        </div>
-                    </div>
-                    <div class="second d-flex flex-column">
-                        <div class="title">ulke</div>
-                        <div class="barcode d-flex flex-row">
-                            <a href="">
-                                <img src="images/etbis-qr.webp" alt="">
-                            </a>
-                        </div>
-                    </div>     
-                </div>
-
-            </div>
-        </div>
-            <button onclick="topFunction()" id="myBtn" title="Go to top">Top 
-                <span class="material-symbols-outlined">  arrow_upward  </span>
-            </button>
             
-
-    </section>
-
-    <script>
-        var timeout    = 500;
-        var closetimer = 0;
-        var ddmenuitem = 0;
-
-        function jsddm_open()
-        {  jsddm_canceltimer();
-        jsddm_close();
-        ddmenuitem = $(this).find('ul').css('visibility', 'visible');}
-
-        function jsddm_close()
-        {  if(ddmenuitem) ddmenuitem.css('visibility', 'hidden');}
-
-        function jsddm_timer()
-        {  closetimer = window.setTimeout(jsddm_close, timeout);}
-
-        function jsddm_canceltimer()
-        {  if(closetimer)
-        {  window.clearTimeout(closetimer);
-            closetimer = null;}}
-
-        $(document).ready(function()
-        {  $('#myTab > li').bind('mouseover', jsddm_open)
-        $('#myTab > li').bind('mouseout',  jsddm_timer)});
-
-        document.onclick = jsddm_close;
-    </script>
-    <script>
-    // Get the button
-    let mybutton = document.getElementById("myBtn");
-    
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function() {scrollFunction()};
-    
-    function scrollFunction() {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
-      }
-    }
-    
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-    </script>
-    <script>
-        // hamburger menu
-        function hamMenu() {
-            var menu = document.getElementById("mobile-menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
-
-    </script>
-    <script>
-        $(document).ready(function() {
-            $("#showPass").click(function() {
-                if ($("#myPass").attr("type") == "password") {
-                $("#myPass").attr("type", "text");
-                } else {
-                $("#myPass").attr("type", "password");
-                }
-            });
-            $("#showPass").click(function() {
-                $("#showPass span").toggle();
-            });
-        });
-
-    </script>
-
-</body>
-</html>
-
-
-
-  
+        </div>
