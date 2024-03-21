@@ -24,7 +24,7 @@
 <?php 
     if(isset($_GET['id'])){
         $id = $_GET['id'];                        
-        $sql = "SELECT * FROM `users` WHERE `usersId` = $id ";
+        $sql = "SELECT * FROM `users` WHERE `id` = $id ";
         $result = mysqli_query($conn , $sql);
         $row = mysqli_fetch_assoc($result);
     }
@@ -33,19 +33,21 @@
     if(isset($_POST['updateUser'])){
         if(isset($_GET['id'])){
 
-        $idnew = $_GET['id'];
+        $id = $_GET['id'];
         $name       = $_POST['name'];
         $usernameid = $_POST['usernameid'];
         $email      = $_POST['email'];
 
-        $sql = "UPDATE `users` set `usersName` = '$name' , `usersUid` = '$usernameid' , `usersEmail` = '$email' WHERE `usersId` = '$idnew'";
+        $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
         $result = mysqli_query($conn,$sql);
         
         if(!$result){
             die("queri failed");
         }else {
-            $newURL = "http://localhost/trendyol/shopping/usersList.php"; 
-            header('Location: '.$newURL);
+            header("location: usersList.php");
+
+            // $newURL = "http://localhost/trendyol/shopping/usersList.php"; 
+            // header('Location: '.$newURL);
             }
         }
     }
@@ -64,15 +66,15 @@
                         <div class="d-flex flex-column">
                             <div class="input-group mb-3">
                                 <label class="form-label" for="usersName">Name</label>
-                                <input class="form-control signIn-input" type="text" name="name" id="name" value="<?php echo $row['usersName'] ?>">
+                                <input class="form-control signIn-input" type="text" name="name" id="name" value="<?php echo $row['fullname'] ?>">
                             </div>
                             <div class="input-group mb-3">
                                 <label class="form-label" for="uid">Username</label>
-                                <input class="form-control signIn-input" type="text" name="usernameid" id="username" value="<?php echo $row['usersUid'] ?>">
+                                <input class="form-control signIn-input" type="text" name="usernameid" id="username" value="<?php echo $row['username'] ?>">
                             </div>
                             <div class="input-group mb-3">
                                 <label class="form-label" for="usersEmail">Email</label>
-                                <input class="form-control signIn-input" type="email" name="email" id="email" value="<?php echo $row['usersEmail'] ?>">
+                                <input class="form-control signIn-input" type="email" name="email" id="email" value="<?php echo $row['email'] ?>">
                             </div>
 
                             <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">

@@ -32,7 +32,7 @@ function invalidEmail($email) {
     return $result;
 }
 function pwdMatch($pwd, $pwdRepeat) {
-    $result=true;
+    $result =true;
     if($pwd !== $pwdRepeat){
         $result = true;
     }
@@ -42,8 +42,13 @@ function pwdMatch($pwd, $pwdRepeat) {
     return $result;
 }
 
+function clearInput($item){
+    return htmlspecialchars(trim($item));
+
+}
+
 function uidExists($conn, $username , $email) {
-    $sql = "SELECT * FROM users WHERE usersUid = ? OR usersEmail = ? ;";
+    $sql = "SELECT * FROM users WHERE username = ? OR email = ? ;";
     $stmt = mysqli_stmt_init($conn);
    
      if(!mysqli_stmt_prepare($stmt,$sql) ){
@@ -66,7 +71,10 @@ function uidExists($conn, $username , $email) {
 }
 
 function createUser($conn, $name, $email, $username, $pwd) {
-    $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (? , ? , ? , ?);";
+ 
+
+
+    $sql = "INSERT INTO users (fullname, email, username, password) VALUES ($name , $email ,$username , $pwd);";
     $stmt = mysqli_stmt_init($conn);
    
     if(!mysqli_stmt_prepare($stmt,$sql) ){
@@ -98,7 +106,7 @@ function loginUser($conn, $username , $pwd){
         header("location: ./signIn.php?error=wronglogin");
         exit();
     }
-    $pwdHashed = $uidExists["usersPwd"];
+    $pwdHashed = $uidExists["password"];
     $checkPwd = password_verify($pwd,$pwdHashed);
 
     if($checkPwd === false){
