@@ -12,23 +12,23 @@
         require_once "functions.inc.php";
 
         // check some validation after press submit btn
-        if(emptyInputSignin($name, $email, $username, $pwd, $pwdRepeat) !== false   ){
+        if(emptyInputSignin($name, $email, $username, $pwd, $pwdRepeat) !== false){
             header("location: ../signIn.php?error=emptyinput");
             exit();
         }
-        if(invalidUid($username) !== false  ){
+        if(invalidUid($username) !== false){
             header("location: ../signIn.php?error=invalidUid");
             exit();
         }
-        if(invalidEmail($email) !== false  ){
+        if(invalidEmail($email) !== false){
             header("location: ../signIn.php?error=invalidEmail");
             exit();
         }
-        if(pwdMatch($pwd, $pwdRepeat) !== false  ){
+        if(pwdMatch($pwd, $pwdRepeat) !== false){
             header("location: ../signIn.php?error=passworddontmatch");
             exit();
         }
-        if(uidExists($conn, $username , $email ) !== false  ){
+        if(uidExists($conn, $username , $email ) !== false){
             header("location: ../signIn.php?error=usernametaken");
             exit();
         }

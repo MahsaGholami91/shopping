@@ -14,11 +14,11 @@
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <form class=" login-form" action="">
+                            <form class=" login-form" action="includes/login.inc.php" method="post">
                                 <div class="d-flex flex-column">
                                     <div class="input-group mb-3">
                                         <label class="form-label" for="email">Email</label>
-                                        <input class="form-control login-input" type="text" name="name" id="name">
+                                        <input class="form-control login-input" type="text" name="email" id="email">
                                     </div>
                                     <div class="input-group mb-3">
                                         <label class="form-label" for="password">Password</label>
@@ -32,7 +32,7 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <form class="signIn-form" action="includes/signin.inc.ph p" method="POST">
+                            <form class="signIn-form" action="includes/signin.inc.php" method="POST">
                                 <div class="d-flex flex-column">
                                     <div class="input-group mb-3">
                                         <label class="form-label" for="usersName">Name</label>
@@ -46,7 +46,6 @@
                                         <label class="form-label" for="usersEmail">Email</label>
                                         <input class="form-control signIn-input" type="email" name="email" id="email">
                                     </div>
-
                                     <div class="input-group mb-3">
                                         <label class="form-label" for="usersPwd">Password</label>
                                         <input class="form-control signIn-input" type="password" name="pwd" id="myPass">
@@ -65,7 +64,6 @@
                                         </span>
                                         <span class="password-cm">Lorem ipsum dolor sit amet.</span>                                    
                                     </div>
-
                                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check " name="gender" id="btnradio1" autocomplete="off" value="0" checked>
                                         <label class="btn gender-btn" for="btnradio1">Kadin</label>

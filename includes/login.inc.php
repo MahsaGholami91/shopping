@@ -1,21 +1,74 @@
 <?php
-    // Check if submit button pressed
-    if (isset($_POST["submit"])) {
-        $username = $_POST['uid'];
-        $pwd = $_POST['pwd'];
+    require_once "db.inc.php";
 
-        require_once "db.inc.php";
-        require_once "functions.inc.php";
+    $email = $_POST["email"];
+    $pwd = $_POST['pwd'];
 
-        if(emptyInputLogin($username, $pwd) !== false   ){
-            header("location: ../signIn.php?error=emptyinput");
-            exit();
+    // Fetching the hashed password from the database
+    $stmt = $conn->prepare("SELECT usersPwd FROM users WHERE usersEmail = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $hashedPwd = $row['usersPwd'];
+
+        // Verifying the hashed password
+        if (password_verify($pwd, $hashedPwd)) {
+            echo "</br>Welcome,You are logined!";
+        } else {
+            echo "</br>Wrong password";
         }
-        loginUser($conn, $username , $pwd);
-
+    } else {
+        echo "</br>User not found";
     }
-    else {
-    header("location: ../signIn.php");
-    exit();
-}
+
+    $stmt->close();
+    $conn->close();
+    ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+    // $email = $_POST["email"];
+    // $pwd = $_POST['pwd'];
+    // $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+    // $check = mysqli_query($conn,"SELECT * FROM users WHERE `usersEmail` = '$email' AND `usersPwd` = '$pwd'");
+
+    // if(mysqli_num_rows($check) > 0){
+    // echo 'welcome';
+    // }
+    // else { 
+    //     echo 'wrong';
+    // }
+
+
+
+
         
