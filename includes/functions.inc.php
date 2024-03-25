@@ -42,10 +42,10 @@ function pwdMatch($pwd, $pwdRepeat) {
     return $result;
 }
 
-function clearInput($item){
-    return htmlspecialchars(trim($item));
+// function clearInput($item){
+//     return htmlspecialchars(trim($item));
 
-}
+// }
 
 function uidExists($conn, $username , $email) {
     $sql = "SELECT * FROM users WHERE username = ? OR email = ? ;";
