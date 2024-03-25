@@ -74,7 +74,7 @@ function createUser($conn, $name, $email, $username, $pwd) {
  
 
 
-    $sql = "INSERT INTO users (fullname, email, username, password) VALUES ($name , $email ,$username , $pwd);";
+    $sql = "INSERT INTO users (fullname, email, username, password) VALUES (? , ? ,? ,?);";
     $stmt = mysqli_stmt_init($conn);
    
     if(!mysqli_stmt_prepare($stmt,$sql) ){
@@ -118,6 +118,17 @@ function loginUser($conn, $username , $pwd){
 
     }
 }
+
+function getUser($conn ,$email){
+    // $sql = "SELECT `fullname` FROM `users` WHERE `email` = '$email'";
+    $sql = "SELECT `fullname` FROM `users` WHERE `id` > 1 ";
+
+    // var_dump($conn);
+    // var_dump($sql);
+    $result = mysqli_query($conn , $sql);
+    return mysqli_fetch_assoc($result);
+}
+
 
 function editeUser($conn, $name, $email, $username, $pwd) {
     $sql = "UPDATE users SET lastname='Doe' WHERE id=2";

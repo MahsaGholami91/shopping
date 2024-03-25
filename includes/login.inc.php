@@ -1,4 +1,5 @@
 <?php
+session_start();
     require_once "db.inc.php";
 
     $email = $_POST["email"];
@@ -13,6 +14,11 @@
 
         if($check){
             echo 'welcome';
+            $_SESSION['username'] = $email;
+            // $_SESSION['pass'] = $pwd;
+            header("location: ../profile.php");
+
+
         }
         else { 
             echo 'wrong';

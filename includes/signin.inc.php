@@ -4,10 +4,10 @@
  
         $pwdRepeat = $_POST["pwdrepeat"];
         $gender = $_POST["gender"];
-        $name = clearInput($_POST["name"]);
-        $email = clearInput($_POST["email"]);
-        $username = clearInput($_POST["uid"]);
-        $pwd = clearInput($_POST["pwd"]);
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $username = $_POST["uid"];
+        $pwd = $_POST["pwd"];
 
         require_once "db.inc.php";
         require_once "functions.inc.php";
