@@ -70,7 +70,9 @@
     <div class="container container-md">
         <div class="head">
             <div class="banner">
-                <img src="assets/images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
+                <a href="../index.php">
+                    <img src="assets/images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
+                </a>
             </div>
             <div class="border1 my-2">
                 <div class="d-none d-sm-block">

@@ -79,7 +79,9 @@ include "includes/functions.inc.php";
     <div class="container container-md">
         <div class="head">
             <div class="banner">
-                <img src="assets/images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
+                <a href="./index.php">
+                    <img src="assets/images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
+                </a>
             </div>
             <div class="border1 my-2">
                 <div class="d-none d-sm-block">
@@ -128,8 +130,9 @@ include "includes/functions.inc.php";
                                         </a>
                                       
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li class="my-2"><a class="giris-btn dropdown-item" href="signIn.php">User Account</a></li>
-                                            <li class="my-2"><a class="oye-btn dropdown-item" href="signIn.php">order</a></li>
+                                            <li class="my-2"><a class="giris-btn dropdown-item" href="userUpdate.php">User Account</a></li>
+                                            <li class="my-2"><a class="oye-btn dropdown-item" href="signIn.php">Order List</a></li>
+                                            <li class="my-2"><a class="oye-btn dropdown-item" href="resetPassword.php">Change Password</a></li>
                                         </ul>
                                       </div>
                                     <!-- <span>giris</span> -->

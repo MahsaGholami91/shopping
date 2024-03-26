@@ -70,11 +70,12 @@ function uidExists($conn, $username , $email) {
      mysqli_stmt_close($stmt);
 }
 
-function createUser($conn, $name, $email, $username, $pwd) {
- 
+function createUser($conn, $name, $email, $username, $pwd, $dest_path) {
 
 
-    $sql = "INSERT INTO users (fullname, email, username, password) VALUES (? , ? ,? ,?);";
+   
+
+    $sql = "INSERT INTO users (fullname, email, username, password, fileupload) VALUES (? , ? ,? ,?,?);";
     $stmt = mysqli_stmt_init($conn);
    
     if(!mysqli_stmt_prepare($stmt,$sql) ){
@@ -82,7 +83,8 @@ function createUser($conn, $name, $email, $username, $pwd) {
     exit();
     }
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-     mysqli_stmt_bind_param($stmt,"ssss",$name, $email, $username, $hashedPwd );
+     mysqli_stmt_bind_param($stmt,"sssss",$name, $email, $username, $hashedPwd, $dest_path );
+
      mysqli_stmt_execute($stmt);
      mysqli_stmt_close($stmt);
      header("location: ../signIn.php?error=none");
