@@ -54,10 +54,7 @@ if (isset($_SESSION['message']) && $_SESSION['message'])
                                     <label class="form-label" for="usersEmail">Email</label>
                                     <input class="form-control signIn-input" type="email" name="email" id="email">
                                 </div>
-                                <div class="input-group mb-3">
-                                    <span>Upload a File:</span>
-                                    <input type="file" name="uploadedFile" id="uploadedFile" />
-                                </div>
+                           
 
                                 <div class="input-group mb-3">
                                     <label class="form-label" for="usersPwd">Password</label>

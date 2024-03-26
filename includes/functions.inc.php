@@ -70,12 +70,10 @@ function uidExists($conn, $username , $email) {
      mysqli_stmt_close($stmt);
 }
 
-function createUser($conn, $name, $email, $username, $pwd, $dest_path) {
+function createUser($conn, $name, $email, $username, $pwd) {
 
 
-   
-
-    $sql = "INSERT INTO users (fullname, email, username, password, fileupload) VALUES (? , ? ,? ,?,?);";
+    $sql = "INSERT INTO users (fullname, email, username, password) VALUES (? , ? ,? ,?);";
     $stmt = mysqli_stmt_init($conn);
    
     if(!mysqli_stmt_prepare($stmt,$sql) ){
@@ -83,7 +81,7 @@ function createUser($conn, $name, $email, $username, $pwd, $dest_path) {
     exit();
     }
     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-     mysqli_stmt_bind_param($stmt,"sssss",$name, $email, $username, $hashedPwd, $dest_path );
+     mysqli_stmt_bind_param($stmt,"ssss",$name, $email, $username, $hashedPwd );
 
      mysqli_stmt_execute($stmt);
      mysqli_stmt_close($stmt);
@@ -101,6 +99,117 @@ function emptyInputLogin($username, $pwd) {
     }
     return $result;
 }
+
+
+function uploadFile(){
+
+ 
+    if (!isset($_FILES['uploadedFile'])) {
+
+        return [
+            'status' => 0,
+            'message' => "The file doesn't send"
+        ];
+    }
+
+    if(!empty( $_FILES['uploadedFile']['error'])) {
+        $message = 'Error occurred while uploading the file.<br>';
+        $message .= 'Error:' . $_FILES['uploadedFile']['error'];
+        
+        return [
+            'status' => 0,
+            'message' => $message
+        ];
+    }
+    $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+    $fileName = $_FILES['uploadedFile']['name'];
+    $fileSize = $_FILES['uploadedFile']['size'];
+    $fileType = $_FILES['uploadedFile']['type'];
+    $fileNameCmps = explode(".", $fileName);
+    $fileExtension = strtolower(end($fileNameCmps));
+   
+    // removing extra spaces
+    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+    
+    // file extensions allowed
+    $allowedfileExtensions = array('jpg', 'gif', 'png', 'zip', 'txt', 'doc');
+
+    
+    if (!in_array($fileExtension, $allowedfileExtensions)) {
+
+        return [
+            'status' => 0,
+            'message' => "The file is not image"
+        ];
+    }
+   
+
+      // directory where file will be moved
+      $uploadFileDir = './uploads';
+      $dest_path = $uploadFileDir . $newFileName;
+     
+
+      if(move_uploaded_file($fileTmpPath, $dest_path)) {
+        return [
+            'status' => 1,
+            'filename' => $dest_path,
+
+            'message' => 'File uploaded successfully.'
+        ];
+      } else{
+          return [
+            'status' => 0,
+            'message' => "The upload file has an unknown error."
+          ];
+      }
+}
+//     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+//     $fileName = $_FILES['uploadedFile']['name'];
+//     $fileSize = $_FILES['uploadedFile']['size'];
+//     $fileType = $_FILES['uploadedFile']['type'];
+//     $fileNameCmps = explode(".", $fileName);
+//     $fileExtension = strtolower(end($fileNameCmps));
+   
+//     // removing extra spaces
+//     $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+    
+//     // file extensions allowed
+//     $allowedfileExtensions = array('jpg', 'gif', 'png', 'zip', 'txt', 'doc');
+   
+//     if (in_array($fileExtension, $allowedfileExtensions)) {
+
+//       // directory where file will be moved
+//       $uploadFileDir = 'C:\xampp2\htdocs\shopping\uploads\uploadFile';
+//       $dest_path = $uploadFileDir . $newFileName;
+     
+
+//       if(move_uploaded_file($fileTmpPath, $dest_path)) {
+//         $message = 'File uploaded successfully.';
+//       }
+
+//       else 
+//       {
+//         $message = 'An error occurred while uploading the file to the destination directory. Ensure that the web server has access to write in the path directory.';
+//       }
+
+//     }
+
+//     else
+
+//     {
+//       $message = 'Upload failed as the file type is not acceptable. The allowed file types are:' . implode(',', $allowedfileExtensions);
+//     }
+
+//   }
+
+
+
+// $_SESSION['message'] = $message;
+
+// header("Location: uploadImage.php");
+// }
+
+
 
 // function loginUser($conn, $username , $pwd){
 //     $uidExists =  uidExists($conn, $username , $username) ;
