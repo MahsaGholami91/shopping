@@ -24,7 +24,7 @@ include "includes/functions.inc.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="owl.css">
+    <link rel="stylesheet" href="components/owl/css/owl.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <style type="text/css" class="drift-base-styles">
         @keyframes noop {
@@ -79,7 +79,7 @@ include "includes/functions.inc.php";
     <div class="container container-md">
         <div class="head">
             <div class="banner">
-                <img src="images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
+                <img src="assets/images/web-product-detail-top-tr-TR-1709048761837-deprem.webp" alt="">
             </div>
             <div class="border1 my-2">
                 <div class="d-none d-sm-block">
@@ -93,7 +93,7 @@ include "includes/functions.inc.php";
                 <div class="header my-2">
                     <div class="logo">
                         <a href="trendyol.com">
-                            <img class="v-img" src="images/ty-web.svg" alt="">
+                            <img class="v-img" src="assets/images/ty-web.svg" alt="">
                         </a>
                     </div>
                     <div class="input-search">

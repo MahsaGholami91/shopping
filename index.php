@@ -1,4 +1,4 @@
-<?php include "header.php";?>
+<?php include "layout/header.php";?>
         <!-- main body -->
         <div class="main-body">
             <div class="row my-2">
@@ -315,16 +315,16 @@
                         </div>
                         <div class="d-flex flex-row boxes3">
                             <div class="img-box">
-                                <img src="images/1_org_zoom.webp" alt="">
+                                <img src="assets/images/1_org_zoom.webp" alt="">
                             </div>
                             <div class="img-box">
-                                <img src="images/1_org_zoom (1).webp" alt="">
+                                <img src="assets/images/1_org_zoom (1).webp" alt="">
                             </div>
                             <div class="img-box">
-                                <img src="images/1_org_zoom.webp" alt="">
+                                <img src="assets/images/1_org_zoom.webp" alt="">
                             </div>
                             <div class="img-box">
-                                <img src="images/1_org_zoom (1).webp" alt="">
+                                <img src="assets/images/1_org_zoom (1).webp" alt="">
                             </div>
                         </div>
                     </div>  
@@ -1001,4 +1001,4 @@
         <!-- owl -->
     </div>
 
-    <?php include "footer.php"; ?>
+    <?php include "layout/footer.php"; ?>

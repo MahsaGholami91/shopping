@@ -1,5 +1,5 @@
 <?php include "includes/db.inc.php";?>
-<?php include "header.php"; ?>
+<?php include "layout/header.php"; ?>
 
 <?php
     if(isset($_GET['id'])){
@@ -29,4 +29,4 @@
 
 </div>
 
-<?php include "footer.php"; ?>
+<?php include "layout/footer.php"; ?>

@@ -100,29 +100,27 @@ function emptyInputLogin($username, $pwd) {
     return $result;
 }
 
-function loginUser($conn, $username , $pwd){
-    $uidExists =  uidExists($conn, $username , $username) ;
-    if($uidExists === false){
-        header("location: ./signIn.php?error=wronglogin");
-        exit();
-    }
-    $pwdHashed = $uidExists["password"];
-    $checkPwd = password_verify($pwd,$pwdHashed);
+// function loginUser($conn, $username , $pwd){
+//     $uidExists =  uidExists($conn, $username , $username) ;
+//     if($uidExists === false){
+//         header("location: ./signIn.php?error=wronglogin");
+//         exit();
+//     }
+//     $pwdHashed = $uidExists["password"];
+//     $checkPwd = password_verify($pwd,$pwdHashed);
 
-    if($checkPwd === false){
-        header("location: ./signIn.php?error=wronglogin");
-        exit();
-    }
-    else if ($checkPwd === true){
-        session_start();
+//     if($checkPwd === false){
+//         header("location: ./signIn.php?error=wronglogin");
+//         exit();
+//     }
+//     else if ($checkPwd === true){
+//         session_start();
 
-    }
-}
+//     }
+// }
 
 function getUser($conn ,$email){
-    // $sql = "SELECT `fullname` FROM `users` WHERE `email` = '$email'";
-    $sql = "SELECT `fullname` FROM `users` WHERE `id` > 1 ";
-
+    $sql = "SELECT `fullname` FROM `users` WHERE `email` = '$email'";
     // var_dump($conn);
     // var_dump($sql);
     $result = mysqli_query($conn , $sql);
@@ -130,20 +128,20 @@ function getUser($conn ,$email){
 }
 
 
-function editeUser($conn, $name, $email, $username, $pwd) {
-    $sql = "UPDATE users SET lastname='Doe' WHERE id=2";
-    $stmt = mysqli_stmt_init($conn);
+// function editeUser($conn, $name, $email, $username, $pwd) {
+//     $sql = "UPDATE users SET lastname='Doe' WHERE id=2";
+//     $stmt = mysqli_stmt_init($conn);
    
-    if(!mysqli_stmt_prepare($stmt,$sql) ){
-    header("location: ../signIn.php?error=stmtfailed");
-    exit();
-    }
-    $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-     mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd );
-     mysqli_stmt_execute($stmt);
-     mysqli_stmt_close($stmt);
-     header("location: ../signIn.php?error=none");
-    exit();
-}
+//     if(!mysqli_stmt_prepare($stmt,$sql) ){
+//     header("location: ../signIn.php?error=stmtfailed");
+//     exit();
+//     }
+//     $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+//      mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd );
+//      mysqli_stmt_execute($stmt);
+//      mysqli_stmt_close($stmt);
+//      header("location: ../signIn.php?error=none");
+//     exit();
+// }
 
 ?>

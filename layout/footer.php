@@ -14,10 +14,10 @@
                     <div class="second d-flex flex-column">
                         <div class="title">Guvenli</div>
                         <div class="guvenli d-flex flex-row">
-                            <div class="visa"><img src="images/troy-logo-transparent.webp" alt=""></div>
-                            <div class="visa1"><img src="images/footer-master-card.webp" alt=""></div>
-                            <div class="visa2"><img src="images/footer-visa-black.webp" alt=""></div>
-                            <div class="visa3"><img src="images/footer-amex.webp" alt=""></div>
+                            <div class="visa"><img src="assets/images/troy-logo-transparent.webp" alt=""></div>
+                            <div class="visa1"><img src="assets/images/footer-master-card.webp" alt=""></div>
+                            <div class="visa2"><img src="assets/images/footer-visa-black.webp" alt=""></div>
+                            <div class="visa3"><img src="assets/images/footer-amex.webp" alt=""></div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <div class="title">ulke</div>
                         <div class="barcode d-flex flex-row">
                             <a href="">
-                                <img src="images/etbis-qr.webp" alt="">
+                                <img src="assets/images/etbis-qr.webp" alt="">
                             </a>
                         </div>
                     </div>     
@@ -98,7 +98,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="owl.js"></script>
+    <script src="components/owl/js/owl.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  -->
     <script>
         var timeout    = 500;

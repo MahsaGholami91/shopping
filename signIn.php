@@ -1,4 +1,4 @@
-<?php include "header.php"; ?>
+<?php include "layout/header.php"; ?>
         <!-- main body -->
         <div class="container login-page">
             <div class="row">
@@ -110,7 +110,7 @@
         <!-- main body -->
     </div>
          
-    <?php include "footer.php"; ?>
+    <?php include "layout/footer.php"; ?>
 
 <?php 
 
