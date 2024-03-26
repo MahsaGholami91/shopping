@@ -39,9 +39,10 @@
         $name       = $_POST['name'];
         $usernameid = $_POST['usernameid'];
         $email      = $_POST['email'];
+        $file = $_POST['uploadedFile'];
 
 
-        $response = uploadFile();
+        $response = uploadFile($file);
         $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
 
         if(!empty($response['filename'])){
