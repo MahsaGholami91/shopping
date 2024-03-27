@@ -118,21 +118,34 @@ include "includes/functions.inc.php";
                                     <div class="dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="material-symbols-outlined"> person </span>
+
                                             <?php 
                                             if(!empty($_SESSION['username'])){
-
                                                 $row = getUser($conn, $_SESSION['username']);
                                                 echo $row['fullname'];
                                             }
-                                            
                                             ?>
-                                            
                                         </a>
                                       
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li class="my-2"><a class="giris-btn dropdown-item" href="userUpdate.php">User Account</a></li>
-                                            <li class="my-2"><a class="oye-btn dropdown-item" href="signIn.php">Order List</a></li>
-                                            <li class="my-2"><a class="oye-btn dropdown-item" href="resetPassword.php">Change Password</a></li>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                                            <li class="my-2">
+                                                <a class="useraccount-btn dropdown-item" href="userUpdate.php?id=<?php echo $row['id']; ?>">
+                                                    <span class="material-symbols-outlined">manage_accounts</span>
+                                                    User Account
+                                                </a>
+                                            </li>
+                                            <li class="my-2">
+                                                <a class="shoppinglist-btn dropdown-item" href="signIn.php">
+                                                    <span class="material-symbols-outlined">shopping_bag</span>
+                                                    Order List
+                                                </a>
+                                            </li>
+                                            <li class="my-2">
+                                                <a class="changepass-btn dropdown-item" href="resetPassword.php?id=<?php echo $row['id']; ?>">
+                                                    <span class="material-symbols-outlined">passkey</span>
+                                                    Change Password
+                                                </a>
+                                            </li>
                                         </ul>
                                       </div>
                                     <!-- <span>giris</span> -->

@@ -101,34 +101,33 @@ function emptyInputLogin($username, $pwd) {
 }
 
 
-function uploadFile($file){
+function uploadFile(){
 
- 
-    if (!empty($file)) {
-
+    if (empty($_FILES['uploadedFile'])) {     
         return [
             'status' => 0,
             'message' => "The file doesn't send"
         ];
     }
 
-    if(!empty( $file['error'])) {
+    if(!empty( $_FILES['uploadedFile']['error'])) {
         $message = 'Error occurred while uploading the file.<br>';
-        $message .= 'Error:' . $file['error'];
-        
+        $message .= 'Error:' . $_FILES['uploadedFile']['error'];
         return [
             'status' => 0,
             'message' => $message
         ];
     }
-    $fileTmpPath = $file['tmp_name'];
-    $fileName = $file['name'];
-    $fileSize = $file['size'];
-    $fileType = $file['type'];
-    
+
+    $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+    $fileName = $_FILES['uploadedFile']['name'];
+    $fileSize = $_FILES['uploadedFile']['size'];
+    $fileType = $_FILES['uploadedFile']['type'];
+
     $fileNameCmps = explode(".", $fileName);
     $fileExtension = strtolower(end($fileNameCmps));
-   
+
+
     // removing extra spaces
     $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
     
@@ -137,7 +136,6 @@ function uploadFile($file){
 
     
     if (!in_array($fileExtension, $allowedfileExtensions)) {
-
         return [
             'status' => 0,
             'message' => "The file is not image"
@@ -146,7 +144,7 @@ function uploadFile($file){
    
 
       // directory where file will be moved
-      $uploadFileDir = './uploads';
+      $uploadFileDir = './uploads/';
       $finalPath = $uploadFileDir . $newFileName;
      
 
@@ -166,7 +164,7 @@ function uploadFile($file){
 }
 
 function getUser($conn ,$email){
-    $sql = "SELECT `fullname` FROM `users` WHERE `email` = '$email'";
+    $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
     // var_dump($conn);
     // var_dump($sql);
     $result = mysqli_query($conn , $sql);
