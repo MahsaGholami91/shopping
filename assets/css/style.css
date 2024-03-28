@@ -85,7 +85,9 @@ a {
   .header  .action-btn .sign-in .dropdown .dropdown-menu {
     padding: 5px;
   }
-
+.dropdown-item:active {
+    background-color: #666464 !important;
+}
   .header  .action-btn .sign-in .dropdown .dropdown-menu .giris-btn {
     background-color: #f27a1a;
     color: white;

@@ -8,6 +8,7 @@
         $sql = "DELETE FROM `users` WHERE `id` = '$id' ";
         $result = mysqli_query($conn,$sql);
         if(!$result){
+            
             die("Query failed");
         }
         else {

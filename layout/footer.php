@@ -258,6 +258,9 @@
             });
         });
     </script>
+    <script>
+        alert($message);
+    </script>
 </body>
 </html>
 
