@@ -60,7 +60,7 @@ if(!empty($_POST['updatePassword'])){
                 <div class="d-flex flex-column">
                     <div class="input-group mb-3">
                         <label class="form-label" for="currentPwd">Current Password</label>
-                        <input class="form-control signIn-input" type="text" name="currentPwd" id="current-password" value="<?php echo $row['pwd'] ?>">
+                        <input class="form-control signIn-input" type="text" name="currentPwd" id="current-password" value="">
                     </div>
                     <div class="input-group mb-3">
                         <label class="form-label" for="newPwd">New Password</label>

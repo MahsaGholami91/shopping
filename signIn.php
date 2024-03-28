@@ -1,5 +1,6 @@
-<?php include "layout/header.php"; 
+<?php 
 session_start(); 
+include "layout/header.php"; 
 
 if (isset($_SESSION['message']) && $_SESSION['message'])
     {

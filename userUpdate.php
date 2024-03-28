@@ -10,32 +10,7 @@
         $row = mysqli_fetch_assoc($result);
     }
 ?>
-<?php 
-    if(isset($_POST['updateUser'])){
-        if(isset($_GET['id'])){
 
-        $id = $_GET['id'];
-        $name       = $_POST['name'];
-        $usernameid = $_POST['usernameid'];
-        $email      = $_POST['email'];
-
-        $response = uploadFile();
-        $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
-        
-        if(!empty($response['filename'])){
-            $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' , `image` =  '" . $response['filename'] . "'  WHERE `id` = '$id'";
-        }
-
-        $result = mysqli_query($conn,$sql);
-
-        if(!$result){
-            die("queri failed");
-        }else {
-            header("location: usersList.php");
-            }
-        }
-    }
-?>
 
 <?php include "layout/header.php"; ?>
         <!-- main body -->
@@ -46,7 +21,7 @@
                 <div class="col-md-8">
                     <h1>Merhaba!</h1>
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form class="signIn-form" method="POST" enctype="multipart/form-data">
+                    <form id="myForm" class="signIn-form" method="POST" enctype="multipart/form-data">
                         <div class="d-flex flex-column">
                             <div class="input-group mb-3">
                                 <label class="form-label" for="usersName">Name</label>
@@ -60,6 +35,7 @@
                                 <label class="form-label" for="usersEmail">Email</label>
                                 <input class="form-control signIn-input" type="email" name="email" id="email" value="<?php echo $row['email'] ?>">
                             </div>
+                            <input type="hidden" name="id" id="" value="<?php echo $_GET['id'] ?>">
                             <div class="input-group mb-3">
                                 <span>Upload a File:</span>
                                 <input type="file" name="uploadedFile" id="uploadedFile" />
@@ -86,7 +62,43 @@
         </div>
         <!-- main body -->
     </div>
-         
+        
+    
+    <script>
+        $(document).ready(function(){
+            // jQuery function to handle form submission
+            $('#myForm').submit(function(event) {
+                // Prevent default form submission
+                event.preventDefault();
+
+                // Create FormData object
+                var formData = new FormData(this);
+
+                // AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: 'check.php', // Change this to your PHP processing script
+                    data: formData,
+                    dataType: 'json', // Expected response type
+                    contentType: false, // Prevent jQuery from setting contentType
+                    processData: false, // Prevent jQuery from processing data
+                    success: function(response){
+                        console.log('ssxsaxasxasx');
+                        if (response.satus == 1) {
+                            alert(response.message);
+                        };
+                        // Handle successful AJAX call
+                         // Display response in a div with id 'result'
+                    },
+                    error: function(error){
+                        // Handle errors
+                        console.log(error);
+                    }
+                });
+            });
+        });
+</script>
+
 <?php include "layout/footer.php"; ?>
 
 
