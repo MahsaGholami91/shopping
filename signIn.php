@@ -124,30 +124,30 @@ if (isset($_SESSION['message']) && $_SESSION['message'])
 <?php include "layout/footer.php"; ?>
 
 <?php 
-    if (isset($_GET["error"])) {
-        if ($_GET["error"] == "emptyinput") {
-            echo "<p>Fill in all fiels!<p>";
-        }
-        else if ($_GET["error"] == "invalidUid") {
-            echo "<p>Choose a proper username!<p>";
-        }
-        else if ($_GET["error"] == "invalidEmail") {
-            echo "<p>Choose a proper email!<p>";
-        }
-        else if ($_GET["error"] == "passworddontmatch") {
-            echo "<p>Passwors doesnt match!<p>";
-        }
-        else if ($_GET["error"] == "usernametaken") {
-            echo "<p>Username allready taken!<p>";
-        }
-        else if ($_GET["error"] == "stmtfailed") {
-            echo "<p>Something went wring, try again!<p>";
-        }
-        else if ($_GET["error"] == "none") {
-            echo "<p>You have signed in!<p>";
-        }
+    // if (isset($_GET["error"])) {
+    //     if ($_GET["error"] == "emptyinput") {
+    //         echo "<p>Fill in all fiels!<p>";
+    //     }
+    //     else if ($_GET["error"] == "invalidUid") {
+    //         echo "<p>Choose a proper username!<p>";
+    //     }
+    //     else if ($_GET["error"] == "invalidEmail") {
+    //         echo "<p>Choose a proper email!<p>";
+    //     }
+    //     else if ($_GET["error"] == "passworddontmatch") {
+    //         echo "<p>Passwors doesnt match!<p>";
+    //     }
+    //     else if ($_GET["error"] == "usernametaken") {
+    //         echo "<p>Username allready taken!<p>";
+    //     }
+    //     else if ($_GET["error"] == "stmtfailed") {
+    //         echo "<p>Something went wring, try again!<p>";
+    //     }
+    //     else if ($_GET["error"] == "none") {
+    //         echo "<p>You have signed in!<p>";
+    //     }
         
-    }
+    // }
 ?>
 
   

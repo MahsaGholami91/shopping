@@ -66,32 +66,25 @@
     
     <script>
         $(document).ready(function(){
-            // jQuery function to handle form submission
             $('#myForm').submit(function(event) {
-                // Prevent default form submission
                 event.preventDefault();
-
-                // Create FormData object
                 var formData = new FormData(this);
+                // console.log("button clicked");
 
-                // AJAX request
                 $.ajax({
                     type: 'POST',
-                    url: 'check.php', // Change this to your PHP processing script
+                    url: 'check.php',
                     data: formData,
-                    dataType: 'json', // Expected response type
-                    contentType: false, // Prevent jQuery from setting contentType
-                    processData: false, // Prevent jQuery from processing data
+                    dataType: 'json', 
+                    contentType: false, 
+                    processData: false,
                     success: function(response){
                         console.log('ssxsaxasxasx');
-                        if (response.satus == 1) {
+                        if (response.status == 1) {
                             alert(response.message);
                         };
-                        // Handle successful AJAX call
-                         // Display response in a div with id 'result'
                     },
                     error: function(error){
-                        // Handle errors
                         console.log(error);
                     }
                 });

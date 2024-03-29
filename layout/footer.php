@@ -259,7 +259,7 @@
         });
     </script>
     <script>
-        alert($message);
+        // alert($message);
     </script>
 </body>
 </html>
