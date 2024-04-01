@@ -129,6 +129,7 @@
                                             <div class="modal-body">
                                                 <div class="bigpic">
                                                     <img class="drift-demo-trigger" src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg" alt="" data-zoom="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg">
+                                                    <!-- <img class="" src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg" alt="" data-zoom="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg"> -->
                                                 </div>
                                                 <div class="part2 d-flex flex-row">
                                                     <h3>
@@ -1002,3 +1003,4 @@
     </div>
 
     <?php include "layout/footer.php"; ?>
+    

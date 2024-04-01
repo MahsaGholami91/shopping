@@ -1,111 +1,93 @@
 <?php
+    session_start();
+    include "includes/db.inc.php";
+    include "includes/functions.inc.php";
 
-    //     include "includes/db.inc.php";
-    //     include "includes/functions.inc.php";
-
-        
-    //     echo json_encode(
-    //         [
-    //             'status' => 1,
-    //             'message' => 'ok'
-    //         ]
-    //     );
-    //     exit();
-      
-    // if(isset($_POST['updateUser'])){
-    //     $id = $_POST['id'];
-    //     if(!empty($id)){
-
-    //     $name       = $_POST['name'];
-    //     $usernameid = $_POST['usernameid'];
-    //     $email      = $_POST['email'];
-
-    //     $response = uploadFile();
-    //     $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
-        
-    //     if(!empty($response['filename'])){
-    //         $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' , `image` =  '" . $response['filename'] . "'  WHERE `id` = '$id'";
-    //     }
-
-    //     $result = mysqli_query($conn,$sql);
-
-    //     if($result){
-
-
-            
-    //     echo json_encode(
-    //         [
-    //             'status' => 1,
-    //             'message' => 'ok'
-    //         ]
-    //     );
-    //     exit();
-
-    //         }else {
-                
-    //     echo json_encode([
-            
-    //         'status' => 0,
-    //         'message' => 'wrong'
-    //     ]
-    //     );
-    //     exit();
-
-
-    //         }
-    //     }
-    // }
-?>
-
-<?php
-include "includes/db.inc.php";
-include "includes/functions.inc.php";
-
-if(isset($_POST['updateUser'])){
-    $id         = $_POST['id'];
+    $id       = $_POST['id'];
     $name       = $_POST['name'];
     $usernameid = $_POST['usernameid'];
     $email      = $_POST['email'];
+    // if($status == 2 && $message == ""){
+    //     echo $message = "Please change your data";
+    //     exit;
+         
+    //  }else{
 
-    $response = uploadFile();
-    $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
-    $params = array($name, $usernameid, $email);
+    $status = 2;
+    $message = "";
 
-    if(!empty($response['filename'])){
-            $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' , `image` =  '" . $response['filename'] . "'  WHERE `id` = '$id'";
-    $params[] = $response['filename'];
-    }
+        if(empty($name)){
+            $status = 1;
+            echo $message = "Your Name is empty...";
+        } else{
+            if(strlen($name) < 3){
+                $status = 1;
+                echo $message =   " Your Name must be over 3 charachter...";
+            }else if (preg_match("/^[0-9]*$/", $name)){
+                $status = 1;
+                echo $message =  "Your Name has wrong charachter...";
+            }else {
+                $status = 0;
+                $message = "";
+            }      
+        }
+           
+    
+        if(empty($usernameid)){
+            $status = 1;
+            echo $message = "Your userName is empty...";
+        } else {
+            if(strlen($usernameid) < 3){
+                $status = 1;
+                echo  $message =  "Your userName must be over 3 charachter...";
+            }else if (!preg_match("/^[a-zA-Z0-9]*$/", $usernameid)){
+                $status = 1;
+                echo $message =  "Your userName has wrong charachter...";
+            } else {
+            $status = 0;
+            $message = "";
+            } 
+        }
+            
 
-    $stmt = mysqli_prepare($conn, $sql);
-    if ($stmt === false) {
-        echo json_encode([
-            'status' => 0,
-            'message' => 'Database error: ' . mysqli_error($conn)
-        ]);
-        exit();
-    }
+        if(empty($email)){
+            $status = 1;
+            echo  $message =  "Your email is empty";
+        } else {
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                $status = 1;
+                echo  $message =  "Your email wrong";
 
-    mysqli_stmt_bind_param($stmt, str_repeat('s', count($params)), ...$params);
-    $result = mysqli_stmt_execute($stmt);
+            }else {
+                $status = 0;
+                $message = "";
+            } 
+        }
+               
+            
+        if($status == 0 && $message == ""){
+            
+            $response = uploadFile();
+            $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
+        
+            if(!empty($response['filename'])){
+                $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' , `image` =  '" . $response['filename'] . "'  WHERE `id` = '$id'";
+            }
+    
+            $result = mysqli_query($conn,$sql);
+    
+            if($result){      
+                echo  $message = "Your data updated";
+                exit();
+            }
+        }
+    
+        
 
-    if($result){
-        echo json_encode([
-            'status' => 1,
-            'message' => 'ok'
-        ]);
-        exit();
-    } else {
-        echo json_encode([
-            'status' => 0,
-            'message' => 'Update failed: ' . mysqli_error($conn)
-        ]);
-        exit();
-    }
-} else {
-    echo json_encode([
-        'status' => 0,
-        'message' => 'Invalid request'
-    ]);
-    exit();
-}
+
+
+
+    
 ?>
+
+

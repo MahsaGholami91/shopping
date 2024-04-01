@@ -126,14 +126,8 @@ function uploadFile(){
 
     $fileNameCmps = explode(".", $fileName);
     $fileExtension = strtolower(end($fileNameCmps));
-
-
-    // removing extra spaces
     $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-    
-    // file extensions allowed
     $allowedfileExtensions = array('jpg', 'gif', 'png', 'zip', 'txt', 'doc');
-
     
     if (!in_array($fileExtension, $allowedfileExtensions)) {
         return [
@@ -142,12 +136,9 @@ function uploadFile(){
         ];
     }
    
-
-      // directory where file will be moved
       $uploadFileDir = './uploads/';
       $finalPath = $uploadFileDir . $newFileName;
      
-
       if(move_uploaded_file($fileTmpPath, $finalPath)) {
         return [
             'status' => 1,

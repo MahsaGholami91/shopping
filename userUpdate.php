@@ -1,18 +1,19 @@
-<?php include "includes/db.inc.php";
-      include "includes/functions.inc.php";
-      
-?>
 <?php 
+
+session_start();
+
+    include "includes/db.inc.php";
+    include "includes/functions.inc.php";
+      
     if(isset($_GET['id'])){
         $id = $_GET['id'];                        
         $sql = "SELECT * FROM `users` WHERE `id` = $id ";
         $result = mysqli_query($conn , $sql);
         $row = mysqli_fetch_assoc($result);
+ 
     }
-?>
 
-
-<?php include "layout/header.php"; ?>
+ include "layout/header.php"; ?>
         <!-- main body -->
         
         <div class="container login-page">
@@ -42,20 +43,13 @@
                             </div>
 
                             <img src="<?php echo $row['image'] ?>" alt="">
-
-                            <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check " name="gender" id="btnradio1" autocomplete="off" value="0" checked>
-                                <label class="btn gender-btn" for="btnradio1">Kadin</label>
-                                <input type="radio" class="btn-check " name="gender" id="btnradio2" autocomplete="off" value="1" >
-                                <label class="btn gender-btn" for="btnradio2">Erkek</label>
-                                </div> -->
                             
                             <div class="input-group my-4">
                                 <button class="giris-submit btn" type="submit" name="updateUser" value="UPDATE">Update</button>
                             </div>
                         </div>
                     </form>
-                        
+                                 
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -63,31 +57,45 @@
         <!-- main body -->
     </div>
         
-    
     <script>
+       
+    </script>
+    <script>
+
         $(document).ready(function(){
             $('#myForm').submit(function(event) {
-                event.preventDefault();
-                var formData = new FormData(this);
-                // console.log("button clicked");
 
+                event.preventDefault();
+                $("#overlay").show();
+                var userid =  <?php echo $id ?>;
+                var formData = {
+                    id: userid,
+                    name: $("#name").val(),
+                    usernameid: $("#username").val(),
+                    email: $("#email").val()
+                };
                 $.ajax({
                     type: 'POST',
-                    url: 'check.php',
+                    async: true,
+                    cache: false,
                     data: formData,
-                    dataType: 'json', 
-                    contentType: false, 
-                    processData: false,
-                    success: function(response){
-                        console.log('ssxsaxasxasx');
-                        if (response.status == 1) {
-                            alert(response.message);
-                        };
+                    url: 'check.php',
+                    beforeSend: function() {
+                                        
                     },
-                    error: function(error){
-                        console.log(error);
-                    }
+                    success: function(response) {
+                        setTimeout(function() {
+                            $("#overlay").hide();
+                            alert(response);
+                        }, 1000);
+                  
+                    },
+                    complete: function() {
+                       
+                    },
                 });
+
+
             });
         });
 </script>

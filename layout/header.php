@@ -16,7 +16,9 @@
     <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="components/owl/css/owl.css">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width, user-scalable=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style type="text/css" class="drift-base-styles">
         @keyframes noop {
           0% { zoom: 1; }
@@ -25,7 +27,6 @@
         @-webkit-keyframes noop {
           0% { zoom: 1; }
         }
-        
         .drift-zoom-pane.drift-open {
           display: block;
         }
@@ -67,6 +68,9 @@
 
 </head>
 <body>
+    <div id="overlay">
+        <div id="loader"></div>
+    </div>
     <div class="container container-md">
         <div class="head">
             <div class="banner">
