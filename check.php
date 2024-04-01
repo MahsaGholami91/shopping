@@ -7,25 +7,22 @@
     $name       = $_POST['name'];
     $usernameid = $_POST['usernameid'];
     $email      = $_POST['email'];
-    // if($status == 2 && $message == ""){
-    //     echo $message = "Please change your data";
-    //     exit;
-         
-    //  }else{
 
-    $status = 2;
-    $message = "";
+    $response = array();
+    // $message = "";
 
         if(empty($name)){
-            $status = 1;
-            echo $message = "Your Name is empty...";
+            $response['status'] = 1;
+            $response['message'] = "Your Name is empty...";  
         } else{
             if(strlen($name) < 3){
-                $status = 1;
-                echo $message =   " Your Name must be over 3 charachter...";
+                $response['status'] = 1;
+                $response['message'] = "Your Name must be over 3 charachter...";  
+             
             }else if (preg_match("/^[0-9]*$/", $name)){
-                $status = 1;
-                echo $message =  "Your Name has wrong charachter...";
+                $response['status'] = 1;
+                $response['message'] = "Your Name has wrong charachter..."; 
+
             }else {
                 $status = 0;
                 $message = "";
@@ -34,37 +31,50 @@
            
     
         if(empty($usernameid)){
-            $status = 1;
-            echo $message = "Your userName is empty...";
+            $response['status'] = 1;
+            $response['message'] = "Your userName is empty..."; 
+
         } else {
             if(strlen($usernameid) < 3){
-                $status = 1;
-                echo  $message =  "Your userName must be over 3 charachter...";
+                $response['status'] = 1;
+                $response['message'] = "Your userName must be over 3 charachter..."; 
+
             }else if (!preg_match("/^[a-zA-Z0-9]*$/", $usernameid)){
-                $status = 1;
-                echo $message =  "Your userName has wrong charachter...";
-            } else {
+                $response['status'] = 1;
+                $response['message'] = "Your userName has wrong charachter..."; 
+
+            } 
+            else {
             $status = 0;
             $message = "";
             } 
+
         }
-            
 
         if(empty($email)){
-            $status = 1;
-            echo  $message =  "Your email is empty";
+            $response['status'] = 1;
+            $response['message'] = "Your email is empty"; 
+
         } else {
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $status = 1;
-                echo  $message =  "Your email wrong";
+                $response['status'] = 1;
+                $response['message'] = "Your email wrong"; 
 
             }else {
                 $status = 0;
                 $message = "";
             } 
         }
-               
-            
+        if (uidExists($conn, $usernameid , $email)){
+            $response['status'] = 1;
+            $response['message'] = "Your userName already has been there..."; 
+
+        } else {
+            $status = 0;
+            $message = "";
+        }        
+        
+        
         if($status == 0 && $message == ""){
             
             $response = uploadFile();
@@ -77,13 +87,10 @@
             $result = mysqli_query($conn,$sql);
     
             if($result){      
-                echo  $message = "Your data updated";
+                echo json_encode($response);                
                 exit();
             }
         }
-    
-        
-
 
 
 

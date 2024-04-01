@@ -24,18 +24,25 @@ session_start();
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
                     <form id="myForm" class="signIn-form" method="POST" enctype="multipart/form-data">
                         <div class="d-flex flex-column">
+
                             <div class="input-group mb-3">
                                 <label class="form-label" for="usersName">Name</label>
                                 <input class="form-control signIn-input" type="text" name="name" id="name" value="<?php echo $row['fullname'] ?>">
                             </div>
+                            <div id="nameError" style="color: red;"></div>
+
                             <div class="input-group mb-3">
                                 <label class="form-label" for="uid">Username</label>
                                 <input class="form-control signIn-input" type="text" name="usernameid" id="username" value="<?php echo $row['username'] ?>">
                             </div>
+                            <div id="usernameError" style="color: red;"></div>
+                            
                             <div class="input-group mb-3">
                                 <label class="form-label" for="usersEmail">Email</label>
                                 <input class="form-control signIn-input" type="email" name="email" id="email" value="<?php echo $row['email'] ?>">
                             </div>
+                            <div id="emailError" style="color: red;"></div>
+
                             <input type="hidden" name="id" id="" value="<?php echo $_GET['id'] ?>">
                             <div class="input-group mb-3">
                                 <span>Upload a File:</span>
@@ -84,9 +91,14 @@ session_start();
                                         
                     },
                     success: function(response) {
+                        console.log(response);
+                        if(response.status === 1){
+                            $('#nameError').text(response.message); 
+                        } else {
+                            $('#nameError').text(''); 
+                        }
                         setTimeout(function() {
                             $("#overlay").hide();
-                            alert(response);
                         }, 1000);
                   
                     },
