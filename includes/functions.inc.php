@@ -103,12 +103,7 @@ function emptyInputLogin($username, $pwd) {
 
 function uploadFile(){
 
-    if (empty($_FILES['uploadedFile'])) {     
-        return [
-            'status' => 0,
-            'message' => "The file doesn't send"
-        ];
-    }
+
 
     if(!empty( $_FILES['uploadedFile']['error'])) {
         $message = 'Error occurred while uploading the file.<br>';

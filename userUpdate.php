@@ -54,6 +54,8 @@ session_start();
                             <div class="input-group my-4">
                                 <button class="giris-submit btn" type="submit" name="updateUser" value="UPDATE">Update</button>
                             </div>
+                            <div id="success"></div>
+
                         </div>
                     </form>
                                  
@@ -71,6 +73,7 @@ session_start();
 
         $(document).ready(function(){
             $('#myForm').submit(function(event) {
+                $('#nameError').text(''); 
 
                 event.preventDefault();
                 $("#overlay").show();
@@ -85,6 +88,7 @@ session_start();
                     type: 'POST',
                     async: true,
                     cache: false,
+                    dataType: 'json',
                     data: formData,
                     url: 'check.php',
                     beforeSend: function() {
@@ -93,9 +97,18 @@ session_start();
                     success: function(response) {
                         console.log(response);
                         if(response.status === 1){
-                            $('#nameError').text(response.message); 
+                            $('#success').text(response.message); 
                         } else {
-                            $('#nameError').text(''); 
+                            console.log(response.message)
+                            if (response.message['name'] != undefined) {
+
+                                $('#nameError').text(response.message['name']); 
+                            }
+                            
+                            if (response.message['email'] != undefined) {
+
+                            $('#emailError').text(response.message['email']); 
+                            }
                         }
                         setTimeout(function() {
                             $("#overlay").hide();
