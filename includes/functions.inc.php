@@ -42,10 +42,6 @@ function pwdMatch($pwd, $pwdRepeat) {
     return $result;
 }
 
-// function clearInput($item){
-//     return htmlspecialchars(trim($item));
-
-// }
 
 function uidExists($conn, $username , $email) {
     $sql = "SELECT * FROM users WHERE username = ? OR email = ? ;";
@@ -151,8 +147,6 @@ function uploadFile(){
 
 function getUser($conn ,$email){
     $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
-    // var_dump($conn);
-    // var_dump($sql);
     $result = mysqli_query($conn , $sql);
     return mysqli_fetch_assoc($result);
 }

@@ -1,25 +1,32 @@
 <?php 
-
-// session_start();
 include "profile.php";
-
-    // include "includes/db.inc.php";
-    // include "includes/functions.inc.php";
-    
     if(isset($_POST['id'])){
-        
         $id = $_POST['id'];                        
         $sql = "SELECT * FROM `users` WHERE `id` = $id ";
         $result = mysqli_query($conn , $sql);
         $row = mysqli_fetch_assoc($result);
-        // var_dump($sql);
-        // die;
-        
     }
 
-//  include "layout/header.php"; ?>
+    if(isset($_SESSION['username'])) {
+        $result = getUser($conn, $_SESSION['username']);
+        $logged_in_user_id = $result['id'];
+
+        if(isset($row['id'])) {
+            $user_id = $row['id'];
+            if($logged_in_user_id == $user_id) {
+                echo "User ID matches logged-in user ID.";
+            } else {
+                echo "User ID does not match logged-in user ID.";
+            }
+        } else {
+            echo "No user ID provided in URL.";
+        }
+    } else {
+        echo "User is not logged in.";
+    }
+
+?>
         <!-- main body -->
-        
         <div class="container login-page">
             <div class="row">
                 <div class="col-md-2"></div>
