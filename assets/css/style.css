@@ -1467,12 +1467,9 @@ label {
     100% { transform: rotate(360deg); }
 }
 
-
-/* .name-alert , .username-alert, .email-alert {
-    display: none;
-} */
-
-
+.red-border {
+    border: 1px solid red;
+}
 
 
 @media (max-width: 576px) {

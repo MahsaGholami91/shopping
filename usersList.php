@@ -37,9 +37,20 @@
                                         <td><?php echo $row['fullname']; ?></td>
                                         <td><?php echo $row['username']; ?></td>
                                         <td><?php echo $row['email']; ?></td>
-                                       
-                                        <td><a href="userUpdate.php?id=<?php echo $row['id']; ?>" class="btn btn-success">Update</a></td>
-                                        <td><a href="userDelete.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a></td>
+                                        <td>
+                                            <form action="userUpdate.php" method="POST">
+                                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                                <button type="submit" class="btn btn-success">Update</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="userDelete.php" method="POST">
+                                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                        <!-- <td><a href="userUpdate.php?id=<?php //echo $row['id']; ?>" class="btn btn-success">Update</a></td>
+                                        <td><a href="userDelete.php?id=<?php //echo $row['id']; ?>" class="btn btn-danger">Delete</a></td> -->
                                     </tr>
                                         <?php
 

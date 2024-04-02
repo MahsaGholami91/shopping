@@ -11,7 +11,7 @@ session_start();
         if($check){
             echo 'welcome';
             $_SESSION['username'] = $email;
-            header("location: ../profile.php");
+            header("location: ../userUpdate.php");
         }
         else {
             echo 'wrong';

@@ -1,19 +1,23 @@
 <?php 
 
-session_start();
+// session_start();
+include "profile.php";
 
-    include "includes/db.inc.php";
-    include "includes/functions.inc.php";
-      
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];                        
+    // include "includes/db.inc.php";
+    // include "includes/functions.inc.php";
+    
+    if(isset($_POST['id'])){
+        
+        $id = $_POST['id'];                        
         $sql = "SELECT * FROM `users` WHERE `id` = $id ";
         $result = mysqli_query($conn , $sql);
         $row = mysqli_fetch_assoc($result);
- 
+        // var_dump($sql);
+        // die;
+        
     }
 
- include "layout/header.php"; ?>
+//  include "layout/header.php"; ?>
         <!-- main body -->
         
         <div class="container login-page">
@@ -25,25 +29,25 @@ session_start();
                     <form id="myForm" class="signIn-form" method="POST" enctype="multipart/form-data">
                         <div class="d-flex flex-column">
 
-                            <div class="input-group mb-3">
+                            <div class="input-group ">
                                 <label class="form-label" for="usersName">Name</label>
                                 <input class="form-control signIn-input" type="text" name="name" id="name" value="<?php echo $row['fullname'] ?>">
                             </div>
-                            <div id="nameError" style="color: red;"></div>
+                            <div id="nameError" class="mb-3" style="color: red;"></div>
 
-                            <div class="input-group mb-3">
+                            <div class="input-group ">
                                 <label class="form-label" for="uid">Username</label>
                                 <input class="form-control signIn-input" type="text" name="usernameid" id="username" value="<?php echo $row['username'] ?>">
                             </div>
-                            <div id="usernameError" style="color: red;"></div>
+                            <div id="usernameError" class="mb-3" style="color: red;"></div>
                             
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <label class="form-label" for="usersEmail">Email</label>
                                 <input class="form-control signIn-input" type="email" name="email" id="email" value="<?php echo $row['email'] ?>">
                             </div>
-                            <div id="emailError" style="color: red;"></div>
+                            <div id="emailError" class="mb-3" style="color: red;"></div>
 
-                            <input type="hidden" name="id" id="" value="<?php echo $_GET['id'] ?>">
+                            <input type="hidden" name="id" id="" value="<?php echo $row['id'] ?>">
                             <div class="input-group mb-3">
                                 <span>Upload a File:</span>
                                 <input type="file" name="uploadedFile" id="uploadedFile" />
@@ -54,7 +58,7 @@ session_start();
                             <div class="input-group my-4">
                                 <button class="giris-submit btn" type="submit" name="updateUser" value="UPDATE">Update</button>
                             </div>
-                            <div id="success"></div>
+                            <div id="success" style="color: green;"></div>
 
                         </div>
                     </form>
@@ -74,16 +78,20 @@ session_start();
         $(document).ready(function(){
             $('#myForm').submit(function(event) {
                 $('#nameError').text(''); 
+                $('#usernameError').text(''); 
+                $('#emailError').text(''); 
 
                 event.preventDefault();
                 $("#overlay").show();
-                var userid =  <?php echo $id ?>;
+                var userid =  <?php echo $row['id'] ?>;
                 var formData = {
                     id: userid,
                     name: $("#name").val(),
                     usernameid: $("#username").val(),
                     email: $("#email").val()
                 };
+                console.log(formData);
+                // console.log("formData");
                 $.ajax({
                     type: 'POST',
                     async: true,
@@ -91,36 +99,39 @@ session_start();
                     dataType: 'json',
                     data: formData,
                     url: 'check.php',
-                    beforeSend: function() {
-                                        
+                    beforeSend: function() {               
                     },
                     success: function(response) {
                         console.log(response);
                         if(response.status === 1){
-                            $('#success').text(response.message); 
+                            $('#success').text(response.message['success']); 
+                            $('#name').removeClass("red-border");
+                            $('#username').removeClass("red-border");
+                            $('#email').removeClass("red-border");
                         } else {
-                            console.log(response.message)
                             if (response.message['name'] != undefined) {
-
                                 $('#nameError').text(response.message['name']); 
+                                $('#name').addClass("red-border");
+                            }
+
+                            if (response.message['username'] != undefined) {
+                                $('#usernameError').text(response.message['username']); 
+                                $('#username').addClass("red-border");
                             }
                             
                             if (response.message['email'] != undefined) {
-
-                            $('#emailError').text(response.message['email']); 
+                                $('#emailError').text(response.message['email']); 
+                                $('#email').addClass("red-border");
                             }
+                            
                         }
                         setTimeout(function() {
                             $("#overlay").hide();
                         }, 1000);
-                  
                     },
-                    complete: function() {
-                       
+                    complete: function() {    
                     },
                 });
-
-
             });
         });
 </script>

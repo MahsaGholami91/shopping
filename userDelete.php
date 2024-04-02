@@ -2,8 +2,8 @@
 <?php include "layout/header.php"; ?>
 
 <?php
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
+    if(isset($_POST['id'])){
+        $id = $_POST['id'];
 
         $sql = "DELETE FROM `users` WHERE `id` = '$id' ";
         $result = mysqli_query($conn,$sql);
