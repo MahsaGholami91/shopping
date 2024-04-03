@@ -1,29 +1,44 @@
 <?php 
+
+session_start(); 
+
 include "profile.php";
-    if(isset($_POST['id'])){
-        $id = $_POST['id'];                        
-        $sql = "SELECT * FROM `users` WHERE `id` = $id ";
-        $result = mysqli_query($conn , $sql);
-        $row = mysqli_fetch_assoc($result);
-    }
+// var_dump($_SESSION['username']);
+// die;
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit(); 
+}
+if(isset($_SESSION['username'])) {
+    $result = getUser($conn, $_SESSION['username']);
+    // $logged_in_user_id = $result['id'];
+}
+// include "profile.php";
+// if(isset($_POST['userid'])){
+    // $id = $_POST['userid'];
+    // var_dump($id);
+    // die;                        
+    // $sql = "SELECT * FROM `users` WHERE `id` = '$id' ";
+    // $result = mysqli_query($conn , $sql);
+    // $row = mysqli_fetch_assoc($result);
+// }
 
-    if(isset($_SESSION['username'])) {
-        $result = getUser($conn, $_SESSION['username']);
-        $logged_in_user_id = $result['id'];
-
-        if(isset($row['id'])) {
-            $user_id = $row['id'];
-            if($logged_in_user_id == $user_id) {
-                echo "User ID matches logged-in user ID.";
-            } else {
-                echo "User ID does not match logged-in user ID.";
-            }
-        } else {
-            echo "No user ID provided in URL.";
-        }
-    } else {
-        echo "User is not logged in.";
-    }
+// if(isset($_SESSION['username'])) {
+//     $result = getUser($conn, $_SESSION['username']);
+//     $logged_in_user_id = $result['id'];
+//     if(isset($row['id'])) {         
+//         $user_id = $row['id'];
+//         if($logged_in_user_id == $user_id) {
+//             echo "User ID matches logged-in user ID.";
+//         } else {
+//             echo "User ID does not match logged-in user ID.";
+//         }
+//     } else {
+//         echo "No user ID provided in URL.";
+//     }
+// } else {
+//         echo "User is not logged in.";
+// }
 
 ?>
         <!-- main body -->
@@ -54,7 +69,6 @@ include "profile.php";
                             </div>
                             <div id="emailError" class="mb-3" style="color: red;"></div>
 
-                            <input type="hidden" name="id" id="" value="<?php echo $row['id'] ?>">
                             <div class="input-group mb-3">
                                 <span>Upload a File:</span>
                                 <input type="file" name="uploadedFile" id="uploadedFile" />
@@ -66,10 +80,12 @@ include "profile.php";
                                 <button class="giris-submit btn" type="submit" name="updateUser" value="UPDATE">Update</button>
                             </div>
                             <div id="success" style="color: green;"></div>
+                            <div id="auth" style="color: blue;"></div>
 
                         </div>
                     </form>
-                                 
+                    <input type="hidden" name="userid" id="userid" value="<?php echo $row['id'] ?>">
+       
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -77,9 +93,7 @@ include "profile.php";
         <!-- main body -->
     </div>
         
-    <script>
-       
-    </script>
+
     <script>
 
         $(document).ready(function(){
@@ -90,15 +104,16 @@ include "profile.php";
 
                 event.preventDefault();
                 $("#overlay").show();
-                var userid =  <?php echo $row['id'] ?>;
+                var userid =  '<?php echo $row['id'] ?>';
                 var formData = {
                     id: userid,
                     name: $("#name").val(),
                     usernameid: $("#username").val(),
-                    email: $("#email").val()
+                    email: $("#email").val(),
+                    hidden: $("#userid").val()
                 };
-                console.log(formData);
-                // console.log("formData");
+                
+                var loggedInUserId = <?php echo $result['id'] ?>;
                 $.ajax({
                     type: 'POST',
                     async: true,
@@ -106,10 +121,14 @@ include "profile.php";
                     dataType: 'json',
                     data: formData,
                     url: 'check.php',
-                    beforeSend: function() {               
+                    beforeSend: function() {  
+                        
                     },
                     success: function(response) {
-                        console.log(response);
+                        if (formData['hidden'] != loggedInUserId) {
+                            console.log(response.message);
+                            $('#auth').text(response['message']['auth']); 
+                        }
                         if(response.status === 1){
                             $('#success').text(response.message['success']); 
                             $('#name').removeClass("red-border");

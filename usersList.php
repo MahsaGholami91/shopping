@@ -30,7 +30,8 @@
                                     die("query failed");
                                 }
                                 else{
-                                    while($row = mysqli_fetch_assoc($result)){
+                                    foreach($result as $row ){
+                                    // while($row = mysqli_fetch_assoc($result)){
                                         ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
@@ -49,17 +50,11 @@
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
-                                        <!-- <td><a href="userUpdate.php?id=<?php //echo $row['id']; ?>" class="btn btn-success">Update</a></td>
-                                        <td><a href="userDelete.php?id=<?php //echo $row['id']; ?>" class="btn btn-danger">Delete</a></td> -->
                                     </tr>
                                         <?php
-
                                     }
                                 }
-                            
-                            
                             ?>
-                            
                         </tbody>
                     </table>
                   

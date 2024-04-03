@@ -19,15 +19,6 @@
 
 ?>
 
-
-
-
-
-
-
-
-
-
 </div>
 
 <?php include "layout/footer.php"; ?>
