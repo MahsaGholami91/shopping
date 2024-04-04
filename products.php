@@ -48,6 +48,22 @@ include "layout/header.php";
                             </div>
                             <div id="pColorError" class="mb-3" style="color: red;"></div>
 
+                            <select name="categories[]" multiple>
+                                <?php
+                                require_once "db.inc.php";
+                                $sql = "SELECT id, name FROM category";
+                                $result = mysqli_query($conn, $sql);
+            
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                                    }
+                                } else {
+                                    echo '<option value="">No categories found</option>';
+                                }
+                                ?>
+                            </select>
+                           
                             <div class="input-group mb-3">
                                 <span>Upload a Product Image:</span>
                                 <input type="file" name="uploadedFile" id="uploadedFile" />
@@ -138,7 +154,7 @@ include "layout/header.php";
                 });
             });
         });
-</script> -->
+    </script> -->
 
 <?php include "layout/footer.php"; ?>
 
