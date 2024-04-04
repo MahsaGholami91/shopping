@@ -80,7 +80,7 @@ if (isset($_SESSION['message']) && $_SESSION['message'])
                                     <label class="btn gender-btn" for="btnradio1">Kadin</label>
                                     <input type="radio" class="btn-check " name="gender" id="btnradio2" autocomplete="off" value="1" >
                                     <label class="btn gender-btn" for="btnradio2">Erkek</label>
-                                    </div>
+                                </div>
                                 
                                 <div class="input-group my-4">
                                     <button class="giris-submit btn" type="submit" name="submitBtn">Uye ol</button>

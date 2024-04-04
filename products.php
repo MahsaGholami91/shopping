@@ -1,44 +1,6 @@
 <?php 
+include "layout/header.php"; 
 
-session_start(); 
-
-include "profile.php";
-// var_dump($_SESSION['username']);
-// die;
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit(); 
-}
-if(isset($_SESSION['username'])) {
-    $result = getUser($conn, $_SESSION['username']);
-    // $logged_in_user_id = $result['id'];
-}
-// include "profile.php";
-// if(isset($_POST['userid'])){
-    // $id = $_POST['userid'];
-    // var_dump($id);
-    // die;                        
-    // $sql = "SELECT * FROM `users` WHERE `id` = '$id' ";
-    // $result = mysqli_query($conn , $sql);
-    // $row = mysqli_fetch_assoc($result);
-// }
-
-// if(isset($_SESSION['username'])) {
-//     $result = getUser($conn, $_SESSION['username']);
-//     $logged_in_user_id = $result['id'];
-//     if(isset($row['id'])) {         
-//         $user_id = $row['id'];
-//         if($logged_in_user_id == $user_id) {
-//             echo "User ID matches logged-in user ID.";
-//         } else {
-//             echo "User ID does not match logged-in user ID.";
-//         }
-//     } else {
-//         echo "No user ID provided in URL.";
-//     }
-// } else {
-//         echo "User is not logged in.";
-// }
 
 ?>
         <!-- main body -->
@@ -46,45 +8,61 @@ if(isset($_SESSION['username'])) {
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h1>Merhaba!</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form id="myForm" class="signIn-form" method="POST" enctype="multipart/form-data">
+                    <h1>Create a Product!</h1>
+                    <form id="myForm" class="signIn-form" action="includes/product.inc.php" method="POST" enctype="multipart/form-data">
                         <div class="d-flex flex-column">
 
                             <div class="input-group ">
-                                <label class="form-label" for="usersName">Name</label>
-                                <input class="form-control signIn-input" type="text" name="name" id="name" value="<?php echo $row['fullname'] ?>">
+                                <label class="form-label" for="productName">Name</label>
+                                <input class="form-control signIn-input" type="text" name="productname" id="pName" value="<?php echo $row['name'] ?>">
                             </div>
-                            <div id="nameError" class="mb-3" style="color: red;"></div>
+                            <div id="pNameError" class="mb-3" style="color: red;"></div>
 
                             <div class="input-group ">
-                                <label class="form-label" for="uid">Username</label>
-                                <input class="form-control signIn-input" type="text" name="usernameid" id="username" value="<?php echo $row['username'] ?>">
+                                <label class="form-label" for="productTitle">Title</label>
+                                <input class="form-control signIn-input" type="text" name="productTitle" id="pTitle" value="<?php echo $row['title'] ?>">
                             </div>
-                            <div id="usernameError" class="mb-3" style="color: red;"></div>
+                            <div id="pTitleError" class="mb-3" style="color: red;"></div>
                             
-                            <div class="input-group">
-                                <label class="form-label" for="usersEmail">Email</label>
-                                <input class="form-control signIn-input" type="email" name="email" id="email" value="<?php echo $row['email'] ?>">
+                            <div class="input-group ">
+                                <label class="form-label" for="productDesc">Description</label>
+                                <textarea class="form-control signIn-input" name="productDesc" id="pDescription" value="<?php echo $row['description'] ?>" cols="30" rows="10"></textarea>
                             </div>
-                            <div id="emailError" class="mb-3" style="color: red;"></div>
+                            <div id="pDescriptionError" class="mb-3" style="color: red;"></div>
+
+                            <div class="input-group">
+                                <label class="form-label" for="productPrice">Price</label>
+                                <input class="form-control signIn-input" type="text" name="productPrice" id="pPrice" value="<?php echo $row['price'] ?>">
+                            </div>
+                            <div id="pPriceError" class="mb-3" style="color: red;"></div>
+
+                            <div class="input-group">
+                                <label class="form-label" for="productDisc">Discount</label>
+                                <input class="form-control signIn-input" type="text" name="productDisc" id="pDiscount" value="<?php echo $row['discount'] ?>">
+                            </div>
+                            <div id="pDiscountError" class="mb-3" style="color: red;"></div>
+
+                            <div class="input-group">
+                                <label class="form-label" for="productColor">Color</label>
+                                <input type="color" name="productColor" id="pColor" value="<?php echo $row['color'] ?>">                            
+                            </div>
+                            <div id="pColorError" class="mb-3" style="color: red;"></div>
 
                             <div class="input-group mb-3">
-                                <span>Upload a File:</span>
+                                <span>Upload a Product Image:</span>
                                 <input type="file" name="uploadedFile" id="uploadedFile" />
+                                <img src="<?php echo $row['image'] ?>" alt="">
                             </div>
 
-                            <img src="<?php echo $row['image'] ?>" alt="">
                             
                             <div class="input-group my-4">
-                                <button class="giris-submit btn" type="submit" name="updateUser" value="UPDATE">Update</button>
+                                <button class="giris-submit btn" type="submit" name="createProduct" value="CREATE">CREATE</button>
                             </div>
                             <div id="success" style="color: green;"></div>
                             <div id="auth" style="color: blue;"></div>
 
                         </div>
                     </form>
-                    <input type="hidden" name="userid" id="userid" value="<?php echo $row['id'] ?>">
        
                 </div>
                 <div class="col-md-2"></div>
@@ -94,7 +72,7 @@ if(isset($_SESSION['username'])) {
     </div>
         
 
-    <script>
+    <!-- <script>
 
         $(document).ready(function(){
             $('#myForm').submit(function(event) {
@@ -110,7 +88,6 @@ if(isset($_SESSION['username'])) {
                     name: $("#name").val(),
                     usernameid: $("#username").val(),
                     email: $("#email").val(),
-                    // image: $("#uploadedFile").val(),
                     hidden: $("#userid").val()
                 };
                 
@@ -161,7 +138,7 @@ if(isset($_SESSION['username'])) {
                 });
             });
         });
-</script>
+</script> -->
 
 <?php include "layout/footer.php"; ?>
 

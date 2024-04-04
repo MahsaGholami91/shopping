@@ -9,8 +9,8 @@ function emptyInputSignin($name, $email, $username, $pwd, $pwdRepeat) {
         $result =false;
     }
     return $result;
-
 }
+
 function invalidUid($username) {
     $result=true;
     if(!preg_match("/^[a-zA-Z0-9]*$/", $username)){
@@ -21,6 +21,7 @@ function invalidUid($username) {
     }
     return $result;
 }
+
 function invalidEmail($email) {
     $result=true;
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -31,6 +32,7 @@ function invalidEmail($email) {
     }
     return $result;
 }
+
 function pwdMatch($pwd, $pwdRepeat) {
     $result =true;
     if($pwd !== $pwdRepeat){
@@ -41,7 +43,6 @@ function pwdMatch($pwd, $pwdRepeat) {
     }
     return $result;
 }
-
 
 function uidExists($conn, $username , $email) {
     $sql = "SELECT * FROM users WHERE username = ? OR email = ? ;";
@@ -67,8 +68,6 @@ function uidExists($conn, $username , $email) {
 }
 
 function createUser($conn, $name, $email, $username, $pwd) {
-
-
     $sql = "INSERT INTO users (fullname, email, username, password) VALUES (? , ? ,? ,?);";
     $stmt = mysqli_stmt_init($conn);
    
@@ -96,11 +95,7 @@ function emptyInputLogin($username, $pwd) {
     return $result;
 }
 
-
 function uploadFile(){
-
-
-
     if(!empty( $_FILES['uploadedFile']['error'])) {
         $message = 'Error occurred while uploading the file.<br>';
         $message .= 'Error:' . $_FILES['uploadedFile']['error'];
@@ -109,12 +104,12 @@ function uploadFile(){
             'message' => $message
         ];
     }
-
+    
     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
     $fileName = $_FILES['uploadedFile']['name'];
     $fileSize = $_FILES['uploadedFile']['size'];
     $fileType = $_FILES['uploadedFile']['type'];
-
+    
     $fileNameCmps = explode(".", $fileName);
     $fileExtension = strtolower(end($fileNameCmps));
     $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
@@ -126,11 +121,12 @@ function uploadFile(){
             'message' => "The file is not image"
         ];
     }
-   
-      $uploadFileDir = './uploads/';
-      $finalPath = $uploadFileDir . $newFileName;
-     
+    
+    $uploadFileDir = './uploads/';
+    $finalPath = $uploadFileDir . $newFileName;
+
       if(move_uploaded_file($fileTmpPath, $finalPath)) {
+        var_dump("Dsds");
         return [
             'status' => 1,
             'filename' => $finalPath,
@@ -151,5 +147,37 @@ function getUser($conn ,$email){
     return mysqli_fetch_assoc($result);
 }
 
+function createProduct($conn, $productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg) {
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    
+    $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES ($productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg);";
+    // var_dump($sql);
+    // die;
+      
+      if (mysqli_query($conn, $sql)) {
+        echo "New record created successfully";
+      } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      }
+
+
+    // $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    // $stmt = mysqli_stmt_init($conn);
+    // if(!mysqli_stmt_prepare($stmt,$sql) ){
+    // header("location: ../products.php?error=stmtfailed");
+    // echo "not ok";
+    // exit();
+    // }
+    // mysqli_stmt_bind_param($stmt,"sssffss",$productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg);
+
+    // mysqli_stmt_execute($stmt);
+    // mysqli_stmt_close($stmt);
+    // header("location: ../products.php?error=none");
+    // echo "ok";
+
+    // exit();
+}
 
 ?>

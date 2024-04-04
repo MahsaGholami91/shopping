@@ -8,6 +8,7 @@
     $usernameid = $_POST['usernameid'];
     $email      = $_POST['email'];
     $hidden     = $_POST['hidden'];
+    // $image      = $_POST['uploadedFile'];
     if(isset($_SESSION['username'])) {
         $result = getUser($conn, $_SESSION['username']);
     }
@@ -58,14 +59,15 @@
             }
           
             if($response['status'] == 1){
+                var_dump($_FILES['uploadedFile']);
                 if (!empty($_FILES['uploadedFile'])) {  
     
-                    $response = uploadFile();
+                    $image = uploadFile();
                 }
                 $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' WHERE `id` = '$id'";
             
-                if(!empty($response['filename'])){
-                    $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' , `image` =  '" . $response['filename'] . "'  WHERE `id` = '$id'";
+                if(!empty($image['filename'])){
+                    $sql = "UPDATE `users` set `fullname` = '$name' , `username` = '$usernameid' , `email` = '$email' , `image` =  '" . $image['filename'] . "'  WHERE `id` = '$id'";
                 }
         
                 $result = mysqli_query($conn,$sql);
