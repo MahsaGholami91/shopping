@@ -1,5 +1,8 @@
 <?php 
 include "layout/header.php"; 
+include "includes/db.inc.php";
+// var_dump($conn);
+// die;
 
 
 ?>
@@ -48,26 +51,21 @@ include "layout/header.php";
                             </div>
                             <div id="pColorError" class="mb-3" style="color: red;"></div>
 
-                            <select name="categories[]" multiple>
-                                <?php
-                                require_once "db.inc.php";
-                                $sql = "SELECT id, name FROM category";
-                                $result = mysqli_query($conn, $sql);
-            
-                                if (mysqli_num_rows($result) > 0) {
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
-                                    }
-                                } else {
-                                    echo '<option value="">No categories found</option>';
-                                }
+                            <select name="category" class="form-control signIn-input">
+                                <option value="Select Category" selected>Select Category</option>
+                                <?php 
+                                    $categories = "SELECT * FROM `category`";
+                                    $result = mysqli_query($conn,$categories);
+                                    while($row = mysqli_fetch_array($result)){
                                 ?>
+                                <option value="<?php echo $row['id'] ?>"><?php echo $row['name']?></option>
+                                    <?php } ?>
                             </select>
-                           
+                            <div id="pColorError" class="mb-3" style="color: red;"></div>
+
                             <div class="input-group mb-3">
                                 <span>Upload a Product Image:</span>
                                 <input type="file" name="uploadedFile" id="uploadedFile" />
-                                <img src="<?php echo $row['image'] ?>" alt="">
                             </div>
 
                             
