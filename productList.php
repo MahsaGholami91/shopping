@@ -1,53 +1,49 @@
-<?php include "layout/header.php"; 
-
-
-
-
-
+<?php   include "layout/header.php"; 
+        include "includes/db.inc.php";
 ?>
-    <!-- main body -->
+
+<!-- main body -->
     <div class="container login-page">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <?php 
-                    include "includes/db.inc.php";
-                ?>
                 <h1>Product List!</h1>
-
                 <table class="table table-hover table-bordered table-striped">
-                <?php 
-                    $products = array(
-                        "electronics" => array("TV", "Laptop", "Smartphone"),
-                        "clothing" => array("T-Shirt", "Jeans", "Jacket"),
-                        "books" => array("Fiction", "Non-Fiction"),
-                    );
-                    
-                    foreach ($products as $category => $items) {
-                        // echo $category;
-                ?>
-                    <thead>
-                        <tr>
-                            <th class="text-center"><?php echo $category ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      
-                        <tr>
-                        <?php foreach ($items as $item) { 
-                            // echo $item;
-                            
-                            ?>
-                            <td><?php echo $item; ?></td>
-                        </tr>
-                            <?php
-                                    }
-                                }
-                            ?>
-                    </tbody>
-                </table>
-                
-                    
+    <thead>
+        <tr>
+            <th class="text-center">Category</th>
+            <th class="">Product Name</th>
+            <th class="">Product Title</th>
+            <th class="">Product Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $query = "SELECT product.*, category.name AS category_name FROM product JOIN category ON product.catId = category.id";
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            $data = array();
+            while ($row = mysqli_fetch_assoc($result)) {
+                $categoryName = $row['category_name'];
+                unset($row['category_name']);
+                $data[$categoryName][] = $row;
+            }
+
+            foreach ($data as $categoryName => $categoryData) {
+                echo "<tr><td rowspan='" . count($categoryData) . "'>$categoryName</td>";
+                foreach ($categoryData as $item) {
+                    echo "<td>{$item['name']}</td>";
+                    echo "<td>{$item['title']}</td>";
+                    echo "<td>{$item['price']}</td></tr>";
+                }
+            }
+        } else {
+            echo "<tr><td colspan='4'>Error: " . mysqli_error($conn) . "</td></tr>";
+        }
+        ?>
+    </tbody>
+</table>                
             </div>
             <div class="col-md-2"></div>
         </div>

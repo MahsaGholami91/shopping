@@ -10,19 +10,22 @@ if (isset($_POST["createProduct"])) {
     $productDisc = $_POST['productDisc']; 
     $productColor = $_POST['productColor']; 
     $productCategory = $_POST['category']; 
-    $productImg = $_FILES['uploadedFile']; 
 
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "INSERT INTO `product` (`name`, `title`, `description`, `price`, `discount`, `color`, `image`, `catId`) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
+        if (empty($_FILES['uploadedFile'])){
+            echo "file dosent find";
+        }else {
+            $productImg = uploadFile();
+            $productImgFilename = $productImg['filename'];
+        }
+        $sql = "INSERT INTO `product` (`name`, `title`, `description`, `price`, `discount`, `color`, `image`, `catId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssdissi", $productName, $productTitle, $productDesc, $productPrice, $productDisc, $productColor, $productImg, $productCategory);
+        $stmt->bind_param("sssdissi", $productName, $productTitle, $productDesc, $productPrice, $productDisc, $productColor, $productImgFilename, $productCategory);
         
         if ($stmt->execute()) {
-            var_dump($productImg);
             echo "New record created successfully";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

@@ -96,7 +96,7 @@ function emptyInputLogin($username, $pwd) {
 }
 
 function uploadFile(){
-    if(!empty( $_FILES['uploadedFile']['error'])) {
+    if(!empty($_FILES['uploadedFile']['error'])) {
         $message = 'Error occurred while uploading the file.<br>';
         $message .= 'Error:' . $_FILES['uploadedFile']['error'];
         return [
@@ -104,7 +104,6 @@ function uploadFile(){
             'message' => $message
         ];
     }
-    
     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
     $fileName = $_FILES['uploadedFile']['name'];
     $fileSize = $_FILES['uploadedFile']['size'];
@@ -118,28 +117,79 @@ function uploadFile(){
     if (!in_array($fileExtension, $allowedfileExtensions)) {
         return [
             'status' => 0,
-            'message' => "The file is not image"
+            'message' => "The file is not allowed. Only jpg, gif, png, zip, txt, doc files are allowed."
         ];
     }
-    
-    $uploadFileDir = './uploads/';
+    $uploadFileDir = '../uploads/';
     $finalPath = $uploadFileDir . $newFileName;
-
-      if(move_uploaded_file($fileTmpPath, $finalPath)) {
-        var_dump("Dsds");
+    
+    if (!is_dir($uploadFileDir)) {
+        mkdir($uploadFileDir, 0777, true);
+    }
+    if(move_uploaded_file($fileTmpPath, $finalPath)) {
         return [
             'status' => 1,
             'filename' => $finalPath,
             'data' => $fileType,
             'message' => 'File uploaded successfully.'
         ];
-      } else{
-          return [
+    } else {
+        return [
             'status' => 0,
-            'message' => "The upload file has an unknown error."
-          ];
-      }
+            'message' => "Error occurred while moving the uploaded file."
+        ];
+    }
 }
+
+
+
+
+
+// function uploadFile(){
+//     if(!empty( $_FILES['uploadedFile']['error'])) {
+//         $message = 'Error occurred while uploading the file.<br>';
+//         $message .= 'Error:' . $_FILES['uploadedFile']['error'];
+//         return [
+//             'status' => 0,
+//             'message' => $message
+//         ];
+//     }
+//     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+//     $fileName = $_FILES['uploadedFile']['name'];
+//     $fileSize = $_FILES['uploadedFile']['size'];
+//     $fileType = $_FILES['uploadedFile']['type'];
+    
+//     $fileNameCmps = explode(".", $fileName);
+//     $fileExtension = strtolower(end($fileNameCmps));
+//     $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+//     $allowedfileExtensions = array('jpg', 'gif', 'png', 'zip', 'txt', 'doc');
+    
+//     if (!in_array($fileExtension, $allowedfileExtensions)) {
+//         return [
+//             'status' => 0,
+//             'message' => "The file is not image"
+//         ];
+//     }
+    
+//     $uploadFileDir = './uploads/';
+//     $finalPath = $uploadFileDir . $newFileName;
+    
+//     if(move_uploaded_file($fileTmpPath, $finalPath)) {
+//         var_dump("man injam");
+//         die;
+//         return [
+//             'status' => 1,
+//             'filename' => $finalPath,
+//             'data' => $fileType,
+//             'message' => 'File uploaded successfully.'
+//         ];
+//     } else{
+//           return [
+//             'status' => 0,
+//             'message' => "The upload file has an unknown error."
+//           ];
+//     }
+// }
 
 function getUser($conn ,$email){
     $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
@@ -147,20 +197,19 @@ function getUser($conn ,$email){
     return mysqli_fetch_assoc($result);
 }
 
-function createProduct($conn, $productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg) {
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+// function createProduct($conn, $productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg) {
+//     if (!$conn) {
+//         die("Connection failed: " . mysqli_connect_error());
+//     }
     
-    $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES ($productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg);";
-    // var_dump($sql);
-    // die;
+//     $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES ($productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg);";
+
       
-      if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully";
-      } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-      }
+//       if (mysqli_query($conn, $sql)) {
+//         echo "New record created successfully";
+//       } else {
+//         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+//       }
 
 
     // $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -178,6 +227,6 @@ function createProduct($conn, $productName, $productTitle, $productDesc, $produc
     // echo "ok";
 
     // exit();
-}
+// }
 
 ?>
