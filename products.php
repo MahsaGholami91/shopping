@@ -1,18 +1,20 @@
 <?php 
 include "layout/header.php"; 
 include "includes/db.inc.php";
-// var_dump($conn);
-// die;
+
 
 
 ?>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+
         <!-- main body -->
         <div class="container login-page">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <h1>Create a Product!</h1>
-                    <form id="myForm" class="signIn-form" action="includes/product.inc.php" method="POST" enctype="multipart/form-data">
+                    <form id="myForm" class="signIn-form" action="process.php" method="POST" enctype="multipart/form-data">
                         <div class="d-flex flex-column">
 
                             <div class="input-group ">
@@ -20,6 +22,21 @@ include "includes/db.inc.php";
                                 <input class="form-control signIn-input" type="text" name="productname" id="pName" value="<?php echo $row['name'] ?>">
                             </div>
                             <div id="pNameError" class="mb-3" style="color: red;"></div>
+
+                            <div class="input-group " >
+                                <label class="form-label" for="productName">Category</label>
+                                <select name="category" class="form-control signIn-input">
+                                    <option value="Select Category" selected>Select Category</option>
+                                    <?php 
+                                        $categories = "SELECT * FROM category";
+                                        $result = mysqli_query($conn,$categories);
+                                        while($row = mysqli_fetch_array($result)){
+                                    ?>
+                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['name']?></option>
+                                        <?php  } ?>
+                                </select>
+                            </div>
+                            <div id="pColorError" class="mb-3" style="color: red;"></div> 
 
                             <div class="input-group ">
                                 <label class="form-label" for="productTitle">Title</label>
@@ -51,22 +68,12 @@ include "includes/db.inc.php";
                             </div>
                             <div id="pColorError" class="mb-3" style="color: red;"></div>
 
-                            <select name="category" class="form-control signIn-input">
-                                <option value="Select Category" selected>Select Category</option>
-                                <?php 
-                                    $categories = "SELECT * FROM `category`";
-                                    $result = mysqli_query($conn,$categories);
-                                    while($row = mysqli_fetch_array($result)){
-                                ?>
-                                <option value="<?php echo $row['id'] ?>"><?php echo $row['name']?></option>
-                                    <?php } ?>
-                            </select>
-                            <div id="pColorError" class="mb-3" style="color: red;"></div>
+                          
 
-                            <div class="input-group mb-3">
-                                <span>Upload a Product Image:</span>
-                                <input type="file" name="uploadedFile" id="uploadedFile" />
+                            <div class="input-group mb-3" >
+                                <div id="dropzone" class="dropzone" style="width: 100%;"></div>
                             </div>
+                       
 
                             
                             <div class="input-group my-4">
@@ -85,76 +92,28 @@ include "includes/db.inc.php";
         <!-- main body -->
     </div>
         
-
-    <!-- <script>
-
-        $(document).ready(function(){
-            $('#myForm').submit(function(event) {
-                $('#nameError').text(''); 
-                $('#usernameError').text(''); 
-                $('#emailError').text(''); 
-
-                event.preventDefault();
-                $("#overlay").show();
-                var userid =  '<?php echo $row['id'] ?>';
-                var formData = {
-                    id: userid,
-                    name: $("#name").val(),
-                    usernameid: $("#username").val(),
-                    email: $("#email").val(),
-                    hidden: $("#userid").val()
-                };
-                
-                var loggedInUserId = <?php echo $result['id'] ?>;
-                $.ajax({
-                    type: 'POST',
-                    async: true,
-                    cache: false,
-                    dataType: 'json',
-                    data: formData,
-                    url: 'check.php',
-                    beforeSend: function() {  
-                        
-                    },
-                    success: function(response) {
-                        if (formData['hidden'] != loggedInUserId) {
-                            console.log(response.message);
-                            $('#auth').text(response['message']['auth']); 
-                        }
-                        if(response.status === 1){
-                            $('#success').text(response.message['success']); 
-                            $('#name').removeClass("red-border");
-                            $('#username').removeClass("red-border");
-                            $('#email').removeClass("red-border");
-                        } else {
-                            if (response.message['name'] != undefined) {
-                                $('#nameError').text(response.message['name']); 
-                                $('#name').addClass("red-border");
-                            }
-
-                            if (response.message['username'] != undefined) {
-                                $('#usernameError').text(response.message['username']); 
-                                $('#username').addClass("red-border");
-                            }
-                            
-                            if (response.message['email'] != undefined) {
-                                $('#emailError').text(response.message['email']); 
-                                $('#email').addClass("red-border");
-                            }
-                            
-                        }
-                        setTimeout(function() {
-                            $("#overlay").hide();
-                        }, 1000);
-                    },
-                    complete: function() {    
-                    },
-                });
-            });
-        });
-    </script> -->
-
 <?php include "layout/footer.php"; ?>
+
+<script>
+    // Initialize Dropzone
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone("#dropzone", {
+        url: "process.php",
+        paramName: "file",
+        maxFilesize: 10, // MB
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        addRemoveLinks: true,
+        dictDefaultMessage: "Drop files here or click to upload",
+        dictRemoveFile: "Remove",
+        success: function(file, response) {
+            $('#success').text(response);
+        },
+        error: function(file, errorMessage) {
+            $('#error').text(errorMessage);
+        }
+    });
+</script>
+
 
 
 

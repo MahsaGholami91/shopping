@@ -1,26 +1,34 @@
 <?php
 
-$errors = [];
-$data = [];
+$target_dir = "uploads/";
+$request = 1 ;
 
-if (empty($_POST['name'])) {
-    $errors['name'] = 'Name is required.';
+if(isset($_POST['request'])){
+     $request = $_POST['request'];
 }
 
-if (empty($_POST['email'])) {
-    $errors['email'] = 'Email is required.';
+     // upload file
+    
+if ($request == 1) {
+     $target_file = $target_dir.$_FILES['file']['name'];
+     $msg = "";
+
+     // Upload file
+     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+          $msg = "File uploaded successfully.";
+     }else{
+          
+          $msg = "File uploaded not successfully.";
+     }
+     echo $msg;
+          exit;
+}
+// remove file
+if ($request == 2) {
+     $filename = $target_dir.$_POST['name'];
+     unlink($filename);
+     exit;
+
 }
 
-if (empty($_POST['superheroAlias'])) {
-    $errors['superheroAlias'] = 'Superhero alias is required.';
-}
 
-if (!empty($errors)) {
-    $data['success'] = false;
-    $data['errors'] = $errors;
-} else {
-    $data['success'] = true;
-    $data['message'] = 'Success!';
-}
-
-echo json_encode($data);
