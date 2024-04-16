@@ -7,12 +7,14 @@ if(isset($_POST['request'])){
      $request = $_POST['request'];
 }
 
-     // upload file
-    
+// upload file
+
 if ($request == 1) {
      $target_file = $target_dir.$_FILES['file']['name'];
      $msg = "";
-
+     
+     // var_dump($_FILES);
+     // die;
      // Upload file
      if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
           $msg = "File uploaded successfully.";

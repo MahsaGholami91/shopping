@@ -11,7 +11,7 @@ include "includes/db.inc.php";
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <h1>Create a Product!</h1>
-                    <form id="myForm" class="signIn-form" action="includes/product.inc.php" method="POST" enctype="multipart/form-data">
+                    <form id="myForm" class="signIn-form" action="includes/product.inccopy.php" method="POST" enctype="multipart/form-data">
                         <div class="d-flex flex-column">
 
                             <div class="input-group ">
@@ -88,28 +88,33 @@ include "includes/db.inc.php";
 <?php include "layout/footer.php"; ?>
 
 <script>
-    // Initialize Dropzone
-    console.log('kkkk');
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone("#dropzone", {
-        // url: "process.php",
-        url: "includes/product.inc.php",
-        paramName: "file",
-        maxFilesize: 10, // MB
-        acceptedFiles: ".jpeg,.jpg,.png,.gif",
-        addRemoveLinks: true,
-        dictDefaultMessage: "Drop files here or click to upload",
-        dictRemoveFile: "Remove",
-        
-        success: function(file, response) {
-            $('#success').text(response);
-            console.log('yeeees');
-        },
-        error: function(file, errorMessage) {
-            $('#error').text(errorMessage);
-            console.log('nooooo');
-        }
+    
+   $(document).ready(function() {
+    $('#myForm').submit(function(e) {
+        e.preventDefault(); // Prevent form submission
+
+        // Collect form data
+        var formData = new FormData(this);
+
+        // Send form data and uploaded file to server via Ajax
+        $.ajax({
+            url: 'includes/product.inccopy.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Handle success
+                $('#success').text(response);
+                console.log('Data inserted successfully');
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.log(error);
+            }
+        });
     });
+});
 </script>
 
 

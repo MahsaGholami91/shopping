@@ -1,10 +1,11 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>How to upload a file using Dropzone.js with PHP</title>
-      
-      <!-- <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" /> -->
       <link rel="stylesheet" href="dist/min/dropzone.min.css" type="text/css" />
+
 </head>
 <body >
       <div class="container" >

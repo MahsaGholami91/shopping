@@ -95,6 +95,9 @@ function emptyInputLogin($username, $pwd) {
     return $result;
 }
 
+
+
+
 function uploadFile(){
     if(!empty($_FILES['uploadedFile']['error'])) {
         $message = 'Error occurred while uploading the file.<br>';
@@ -108,6 +111,7 @@ function uploadFile(){
     $fileName = $_FILES['uploadedFile']['name'];
     $fileSize = $_FILES['uploadedFile']['size'];
     $fileType = $_FILES['uploadedFile']['type'];
+
     
     $fileNameCmps = explode(".", $fileName);
     $fileExtension = strtolower(end($fileNameCmps));
@@ -140,10 +144,6 @@ function uploadFile(){
         ];
     }
 }
-
-
-
-
 
 // function uploadFile(){
 //     if(!empty( $_FILES['uploadedFile']['error'])) {
@@ -197,36 +197,6 @@ function getUser($conn ,$email){
     return mysqli_fetch_assoc($result);
 }
 
-// function createProduct($conn, $productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg) {
-//     if (!$conn) {
-//         die("Connection failed: " . mysqli_connect_error());
-//     }
-    
-//     $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES ($productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg);";
 
-      
-//       if (mysqli_query($conn, $sql)) {
-//         echo "New record created successfully";
-//       } else {
-//         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-//       }
-
-
-    // $sql = "INSERT INTO `product` ( `name`, `title`, `description`, `price`, `discount`, `color`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?);";
-    // $stmt = mysqli_stmt_init($conn);
-    // if(!mysqli_stmt_prepare($stmt,$sql) ){
-    // header("location: ../products.php?error=stmtfailed");
-    // echo "not ok";
-    // exit();
-    // }
-    // mysqli_stmt_bind_param($stmt,"sssffss",$productName, $productTitle, $productDesc, $productPrice, $productdisc, $productColor, $productImg);
-
-    // mysqli_stmt_execute($stmt);
-    // mysqli_stmt_close($stmt);
-    // header("location: ../products.php?error=none");
-    // echo "ok";
-
-    // exit();
-// }
 
 ?>
